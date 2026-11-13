@@ -6,7 +6,7 @@ Inkwell 是一个以“读文章”为中心的 Hugo 主题：素白风格，窄
 
 主要特点：
 
-- 文章页三档布局：宽屏左侧目录跟随滚动高亮，窄屏用悬浮按钮和抽屉（目录、系列两个页签）。
+- 文章页三档布局：宽屏正文右侧是跟随滚动高亮的目录，左侧是系列导航（中等宽度时系列收进底部抽屉）；窄屏用悬浮按钮和抽屉（目录、系列两个页签）。
 - 中文排版调过：行高、段距、行宽、中英混排、标点压缩；超宽的代码、表格、图片、公式、长链接都在块内处理，不会撑出横向滚动条。
 - 代码块（语法高亮、语言名、复制按钮、行号与行高亮）、提示框、图片图注与点击放大、数学公式、Mermaid 图表。
 - 系列（基于 Hugo 分类法）、标签、归档、客户端搜索、深色模式（默认跟随系统，可手动切换）、giscus 评论（默认关闭）。
@@ -66,7 +66,7 @@ theme = "Inkwell"
 
 | 配置项 | 作用 | 缺了会怎样 |
 |---|---|---|
-| `locale = "zh-CN"` | 输出到 `<html lang>`，并决定 giscus 评论框的界面语言 | 页面 `lang` 变成默认的 `en`，屏幕阅读器和浏览器选字体都按英文处理 |
+| `locale = "zh-CN"` | 输出到 `<html lang>`，并决定 giscus 评论框的界面语言 | `<html lang>` 取内容语言的名字（例如 `zh-cn`，没有设置 `defaultContentLanguage` 时是 `en`），不是标准的 `zh-CN`；giscus 评论框语言也按这个名字匹配，通常仍能得到中文 |
 | `defaultContentLanguage = "zh-cn"` | 选择界面文字语言（主题自带 `zh-cn` 与 `en` 两套） | 目录、上一篇/下一篇、搜索、提示框类型名等界面文字变成英文 |
 | `hasCJKLanguage = true` | 按汉字个数统计中文字数 | 字数、预计阅读时间和自动摘要严重偏小（一整段中文只算一个“词”） |
 | `theme = "Inkwell"` | 启用主题；值必须与 `themes/` 下的目录名一致 | 站点没有任何模板 |
@@ -104,7 +104,7 @@ theme = "Inkwell"
 [params.math]
   enable = true
   css = "https://cdn.jsdelivr.net/npm/katex@0.18.4/dist/katex.min.css"
-  cssIntegrity = "sha384-…"
+  cssIntegrity = "sha384-u1zONI5gPXUx0UKI62c75/zww972y0v2rSK5ZYlVdS6xEuWDeZWUI66v6t1gvlXJ"
 [params.mermaid]
   url = "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs"
 [params.footer]
@@ -124,11 +124,11 @@ theme = "Inkwell"
 | `article.showReadingTime` | `true` | 文章头部是否显示预计阅读时间 |
 | `article.externalLinkNewTab` | `true` | 正文里的外部链接是否在新窗口打开（带 `rel="noopener"`）；站内链接始终在当前窗口 |
 | `search.enable` | `false` | 搜索开关。开启后页头出现搜索入口，点击或按 <kbd>/</kbd> 打开搜索弹窗；构建时在站点根输出 `search-index.json`，首次打开弹窗才下载 |
-| `math.enable` | `true` | 公式开关。关闭后公式原样输出，不排版也不加载样式。公式需要配合上一节的 `passthrough` 配置 |
+| `math.enable` | `true` | 公式开关。关闭后公式按纯文本输出（块级写成 `$$…$$`、行内写成 `\(…\)`，用 `\[…\]` 写的块级公式也会变成 `$$…$$`），不排版也不加载样式。公式需要配合上一节的 `passthrough` 配置 |
 | `math.css` | KaTeX 0.18.4 的 CDN 地址 | KaTeX 样式表地址，只在用到公式的页面加载。可换成自己托管的地址；设为空字符串则不加载（公式会缺少样式） |
 | `math.cssIntegrity` | 与默认地址匹配的 SRI 哈希 | 样式表的 `integrity` 值。**改了 `math.css` 就必须同步改这个值**，不需要时设为空字符串 |
 | `mermaid.url` | Mermaid 11 的 CDN 地址（ESM） | Mermaid 脚本地址，只在含 ` ```mermaid ` 代码块的页面加载 |
-| `footer.text` | `""` | 页脚的一行自定义文字，空则不显示。页脚始终有版权行和 RSS 链接 |
+| `footer.text` | `""` | 页脚的一行自定义文字，空则不显示；按行内 Markdown 渲染（站点配置是可信的），所以可以放链接，例如 ICP 备案：`text = "[京ICP备12345678号](https://beian.miit.gov.cn/)"`。页脚始终有版权行和 RSS 链接 |
 | `comments.giscus.repo` | `""` | giscus 的仓库，形如 `owner/repo`。**非空即开启评论**，为空则整个评论功能不输出任何内容 |
 | `comments.giscus.repoId` | `""` | giscus 仓库 ID |
 | `comments.giscus.category` | `""` | giscus 讨论分类名 |
@@ -158,8 +158,8 @@ theme = "Inkwell"
 | `description` | `"一句话摘要"` | 摘要。用作 `<meta name="description">`，摘要样式的首页列表和搜索结果也用它；不写则取正文开头 |
 | `tags` | `["随笔", "Hugo"]` | 标签 |
 | `series` | `["Hugo 入门"]` | 所属系列，需要先声明 `series` 分类法。一篇文章只按它的第一个系列展示 |
-| `weight` | `1` | 系列内的排序：设置了 `weight` 就按升序，没有则按日期升序 |
-| `toc` | `false` | 设为 `false` 不显示目录和窄屏的悬浮按钮。文章没有二、三级标题时也不显示目录 |
+| `weight` | `1` | 系列内的排序：系列里只要有一篇设置了 `weight`，整个系列就按 `weight` 升序；都没有设置则按日期升序 |
+| `toc` | `false` | 设为 `false` 不显示目录和窄屏的悬浮按钮。文章里的标题少于 2 个时也不显示目录 |
 | `comments` | `false` | 设为 `false` 关闭这一篇的评论（评论本身需要先配置 giscus） |
 
 系列的简介来自 `content/series/<系列名>/_index.md`（可选，目录名用系列名本身，例如 `content/series/hugo-入门/_index.md`；正文就是简介）。
@@ -197,7 +197,7 @@ flowchart LR
 ```
 ````
 
-**图片与图注**：图片的 `title` 就是图注，写在独占一段的图片里；没有 `title` 则不显示图注。图片点击可放大，点击图片或按 <kbd>Esc</kbd> 关闭，并且是懒加载的：
+**图片与图注**：独占一段的图片，`title` 就是图注；没有 `title` 则不显示图注。行内图片（和文字写在同一段里）的 `title` 只会变成鼠标悬停提示，不显示图注。图片点击可放大，点击图片或按 <kbd>Esc</kbd> 关闭（包在链接里的图片不会放大，照常跳转），并且是懒加载的：
 
 ```markdown
 ![山峦剪影](mountain.svg "图 1：图注文字")
@@ -216,7 +216,16 @@ const b = 2;
 
 ## 用 CSS 变量覆盖样式
 
-所有颜色、字号、间距都集中在 `assets/css/tokens.css` 里的 CSS 变量，没有写死的数值。Hugo 的资源查找规则是“站点优先于主题”，所以覆盖的办法是：把主题里的 `assets/css/tokens.css` 复制到你站点的 `assets/css/tokens.css`（同一路径），然后改里面的值。注意这是**整个文件替换**：深色模式那一块（`:root[data-theme="dark"]`）也要保留并同步修改；主题以后新增的变量不会自动出现在你的副本里。
+所有颜色、字号、间距都集中在 `assets/css/tokens.css` 里的 CSS 变量，样式表里不再写死这些数值。有两种覆盖办法：
+
+- **只改需要的变量（推荐）**：在你站点里新建 `assets/css/custom.css`，主题会把它排在所有主题样式之后载入，只写要改的变量即可（文件不存在就跳过）。深色值写在 `:root[data-theme="dark"]` 里，例如：
+
+  ```css
+  :root { --c-accent: #0a7d5a; --measure: 38em; }
+  :root[data-theme="dark"] { --c-accent: #3ddc97; }
+  ```
+
+- **整个文件替换**：Hugo 的资源查找规则是“站点优先于主题”，把主题里的 `assets/css/tokens.css` 复制到你站点的 `assets/css/tokens.css`（同一路径）再改。注意深色模式那一块（`:root[data-theme="dark"]`）也要保留并同步修改；主题以后新增的变量不会自动出现在你的副本里。
 
 主要变量如下（浅色在 `:root`，深色在 `:root[data-theme="dark"]` 里覆盖同名变量）：
 
@@ -238,14 +247,15 @@ const b = 2;
 | 变量 | 默认值 | 用途 |
 |---|---|---|
 | `--measure` | `40em` | 正文行宽 |
-| `--sidebar` | `220px` | 宽屏左侧目录栏宽度 |
+| `--sidebar` | `220px` | 宽屏两侧栏（系列导航与目录）的宽度 |
 | `--gap` | `48px` | 目录栏与正文的间距 |
 | `--font-sans` / `--font-mono` | 系统字体栈 | 正文字体 / 代码字体 |
 | `--fs-base` | `16px`（宽度 ≥ 1000px 时 `17px`） | 正文字号 |
 | `--lh-base` | `1.8` | 正文行高 |
+| `--fs-sm` `--fs-body` `--fs-md` `--fs-lg` `--fs-title` 等 | 见文件 | 字号刻度（小字、正文、页头标题、列表标题、页面与文章标题） |
 | `--radius` | `6px` | 圆角 |
 
-深色只在 `data-theme="dark"` 下生效，由页面最早期的内联脚本决定（读取本地保存的选择，没有则跟随系统），因此不会先闪一下白色。
+深色只在 `data-theme="dark"` 下生效，由页面最早期的内联脚本决定（读取本地保存的选择，没有则跟随系统），因此不会先闪一下白色。没有手动选择过时，系统明暗在页面打开期间切换也会实时跟随；手动切换后以保存的选择为准。
 
 ## 本地运行示例站点
 
