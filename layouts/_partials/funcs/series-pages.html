@@ -1,0 +1,6 @@
+{{- /* 系列内文章的阅读顺序。参数：系列词条页。返回按阅读顺序排好的页面集合。
+     系列内任一文章设置了 weight 就整体按 weight 升序，否则按日期升序。 */ -}}
+{{- $pages := .RegularPages -}}
+{{- $weighted := false -}}
+{{- range $pages }}{{ if ne .Weight 0 }}{{ $weighted = true }}{{ end }}{{ end -}}
+{{- return (cond $weighted $pages.ByWeight $pages.ByDate) -}}

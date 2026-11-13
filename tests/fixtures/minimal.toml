@@ -3,3 +3,6 @@ baseURL = "https://minimal.example.org/"
 title = "Minimal Config Site"
 theme = "Inkwell"
 themesDir = "../.."
+# 没声明 series 分类法的站点不会有 content/series（那是 series 词条页的内容），
+# 共用的示例内容里这个目录会被当成普通栏目输出，所以在这里忽略掉。
+ignoreFiles = ["content/series/"]

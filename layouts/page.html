@@ -6,5 +6,8 @@
   <div class="prose">
     {{ .Content }}
   </div>
+  <footer class="article-footer">
+    {{- partial "post-nav.html" . }}
+  </footer>
 </article>
 {{ end }}

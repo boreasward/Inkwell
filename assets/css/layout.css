@@ -170,3 +170,139 @@
   color: var(--c-text-muted);
   font-variant-numeric: tabular-nums;
 }
+
+/* 系列总览 */
+.series-index {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.series-card {
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--c-border);
+}
+
+.series-card:first-child {
+  padding-top: 0;
+}
+
+.series-card:last-child {
+  border-bottom: 0;
+}
+
+.series-card-title {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.series-card-title a {
+  color: var(--c-text);
+}
+
+.series-card-title a:hover {
+  color: var(--c-accent);
+}
+
+.series-card-count {
+  margin: var(--space-1) 0 0;
+  color: var(--c-text-muted);
+  font-size: var(--fs-sm);
+}
+
+.series-card-intro {
+  margin: var(--space-2) 0 0;
+  color: var(--c-text-muted);
+}
+
+.series-card-intro > :first-child {
+  margin-top: 0;
+}
+
+.series-card-intro > :last-child {
+  margin-bottom: 0;
+}
+
+/* 单个系列：带序号的篇目 */
+.series-list {
+  margin: var(--space-4) 0 0;
+  padding-inline-start: 2em;
+}
+
+.series-item {
+  padding: var(--space-1) 0;
+  padding-inline-start: var(--space-1);
+}
+
+.series-item::marker {
+  color: var(--c-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.series-item a {
+  color: var(--c-text);
+  overflow-wrap: anywhere;
+}
+
+.series-item a:hover {
+  color: var(--c-accent);
+}
+
+.series-item time {
+  margin-inline-start: var(--space-3);
+  color: var(--c-text-muted);
+  font-size: var(--fs-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 文章尾部：上一篇 / 下一篇 */
+.post-nav {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--c-border);
+}
+
+.post-nav a {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  color: var(--c-text);
+  overflow-wrap: anywhere;
+}
+
+.post-nav a:hover {
+  border-color: var(--c-accent);
+  color: var(--c-accent);
+}
+
+.post-nav-prev {
+  grid-column: 1;
+}
+
+.post-nav-next {
+  grid-column: 2;
+  text-align: end;
+}
+
+.post-nav-label {
+  color: var(--c-text-muted);
+  font-size: var(--fs-sm);
+}
+
+@media (max-width: 480px) {
+  .post-nav {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .post-nav-prev,
+  .post-nav-next {
+    grid-column: 1;
+  }
+}

@@ -1,0 +1,24 @@
+{{- /* 页面所在系列的位置信息。参数：页面。
+     没有系列、或站点没声明 series 分类法时返回 false；否则返回
+     dict "term" 系列词条页 "pages" 按阅读顺序排好的文章 "index" 当前篇序号（从 1 起）
+          "total" 总篇数 "prev" 上一篇或 nil "next" 下一篇或 nil。
+     只取页面的第一个系列。 */ -}}
+{{- $result := false -}}
+{{- /* Go 模板没有 nil 字面量；空 dict 里取不存在的键得到 nil */ -}}
+{{- $nothing := (dict).none -}}
+{{- if isset site.Taxonomies "series" -}}
+  {{- with .GetTerms "series" -}}
+    {{- $term := index . 0 -}}
+    {{- $pages := partial "funcs/series-pages.html" $term -}}
+    {{- range $i, $p := $pages -}}
+      {{- if $p.Eq $ -}}
+        {{- $prev := $nothing -}}
+        {{- if gt $i 0 }}{{ $prev = index $pages (sub $i 1) }}{{ end -}}
+        {{- $next := $nothing -}}
+        {{- if lt (add $i 1) (len $pages) }}{{ $next = index $pages (add $i 1) }}{{ end -}}
+        {{- $result = dict "term" $term "pages" $pages "index" (add $i 1) "total" (len $pages) "prev" $prev "next" $next -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $result -}}

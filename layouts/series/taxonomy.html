@@ -1,0 +1,27 @@
+{{ define "main" }}
+<div class="page">
+  <header class="page-header">
+    {{- /* 站点没有 content/series/_index.md 时用 i18n 文字，有就沿用它的标题 */ -}}
+    <h1 class="page-title">{{ cond (and .File .Title) .Title (i18n "allSeries") }}</h1>
+  </header>
+  {{- with strings.TrimSpace .Content }}
+  <div class="prose">{{ $.Content }}</div>
+  {{- end }}
+  <ul class="series-index">
+    {{- range .Data.Terms.Alphabetical }}
+    {{- $term := .Page }}
+    <li class="series-card">
+      <h2 class="series-card-title"><a href="{{ $term.RelPermalink }}">{{ $term.LinkTitle }}</a></h2>
+      <p class="series-card-count">{{ i18n "postCount" (dict "Count" .Count) }}</p>
+      {{- with strings.TrimSpace $term.Content }}
+      <div class="series-card-intro">{{ $term.Content }}</div>
+      {{- else }}
+        {{- with $term.Description }}
+      <p class="series-card-intro">{{ . }}</p>
+        {{- end }}
+      {{- end }}
+    </li>
+    {{- end }}
+  </ul>
+</div>
+{{ end }}
