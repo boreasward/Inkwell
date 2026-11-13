@@ -1,0 +1,20 @@
+# 评论配置构建：独立完整的站点配置（Hugo 0.169 下逗号拼接多个配置会丢主题设置，所以不与 hugo.toml 合并）。
+# 开启 giscus（用占位参数）；站点语言为中文，用来验证 data-lang。
+baseURL = "https://comments.example.org/"
+title = "Comments Config Site"
+locale = "zh-CN"
+defaultContentLanguage = "zh-cn"
+theme = "Inkwell"
+themesDir = "../.."
+# 同最小配置：没声明 series 分类法，共用示例内容里的 series 目录要忽略。
+ignoreFiles = ["content/series/"]
+
+# 示例内容里有内嵌 HTML（kbd/mark/details）；不开会在构建时给出 WARN。
+[markup.goldmark.renderer]
+  unsafe = true
+
+[params.comments.giscus]
+  repo = "owner/repo"
+  repoId = "R_x"
+  category = "General"
+  categoryId = "DIC_x"

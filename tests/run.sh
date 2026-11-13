@@ -36,14 +36,17 @@ build "子路径" strict --source exampleSite --baseURL https://example.org/blog
 # 4. 摘要样式构建（首页列表样式取自环境变量 HUGO_PARAMS_HOME_LISTSTYLE）
 HUGO_PARAMS_HOME_LISTSTYLE=summary build "摘要样式" strict --source exampleSite --destination "$PWD/tests/.out-summary" --cleanDestinationDir
 
-# 5. 依次 source 检查脚本（按文件名字典序）
+# 5. 评论构建（独立完整配置，开启 giscus 占位参数）
+build "评论" strict --source exampleSite --config "$PWD/tests/fixtures/comments.toml" --destination "$PWD/tests/.out-comments" --cleanDestinationDir
+
+# 6. 依次 source 检查脚本（按文件名字典序）
 echo "== 产物断言 =="
 for f in tests/checks/*.sh; do
   # shellcheck disable=SC1090
   source "$f"
 done
 
-# 6. node --test（有 node 且 tests/js/ 存在时）
+# 7. node --test（有 node 且 tests/js/ 存在时）
 if command -v node >/dev/null 2>&1; then
   if [ -d tests/js ]; then
     # 新版 Node 把参数当 glob，传目录会报 "Could not find"；这里显式列出测试文件
@@ -56,7 +59,7 @@ else
   echo "提示：未找到 node，跳过 node 测试"
 fi
 
-# 7. 汇总
+# 8. 汇总
 if [ "$FAILED" = 1 ]; then
   exit 1
 fi

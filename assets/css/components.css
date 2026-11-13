@@ -460,3 +460,17 @@
     border-radius: 0;
   }
 }
+
+/* 评论区（giscus）。评论框由 comments.js 注入，在 .comments 里撑满宽度。 */
+.comments {
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--c-border);
+  min-height: var(--space-5);
+}
+
+.comments .giscus,
+.comments .giscus-frame {
+  width: 100%;
+  max-width: 100%;
+}

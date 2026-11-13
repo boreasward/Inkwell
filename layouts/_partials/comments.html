@@ -1,0 +1,21 @@
+{{- /* 评论区（giscus）。参数：页面。
+     只有文章（站点主栏目里的页面，与 post-nav / post-meta 同一口径）才有评论；
+     params.comments.giscus.repo 非空、且 front matter 的 comments 不为 false 时才输出，否则什么都不输出。
+     评论框本身由 assets/js/comments.js 在滚动到附近时才注入。 */ -}}
+{{- $giscus := (site.Params.comments | default dict).giscus | default dict -}}
+{{- $enabled := true -}}
+{{- if isset .Params "comments" }}{{ $enabled = .Params.comments }}{{ end -}}
+{{- if and $giscus.repo $enabled (in site.MainSections .Type) -}}
+  {{- /* 站点语言 → giscus 语言代码：先按完整区域码找，再按主语言找，都找不到用 en */ -}}
+  {{- $langs := dict "zh-cn" "zh-CN" "zh-tw" "zh-TW" "en" "en" -}}
+  {{- $locale := lower site.Language.Locale -}}
+  {{- $lang := index $langs $locale | default (index $langs (index (split $locale "-") 0)) | default "en" -}}
+<section class="comments" aria-label="{{ i18n "comments" }}" data-giscus
+  data-repo="{{ $giscus.repo }}"
+  data-repo-id="{{ $giscus.repoId }}"
+  data-category="{{ $giscus.category }}"
+  data-category-id="{{ $giscus.categoryId }}"
+  data-mapping="{{ $giscus.mapping | default "pathname" }}"
+  data-lang="{{ $lang }}"></section>
+{{ partial "js.html" (dict "src" "js/comments.js" "page" .) }}
+{{- end -}}
