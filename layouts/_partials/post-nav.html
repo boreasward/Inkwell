@@ -7,9 +7,17 @@
   {{- $prev = .prev -}}
   {{- $next = .next -}}
 {{- else -}}
-  {{- /* 实测（Hugo 0.169）：.PrevInSection 是日期更早的一篇，.NextInSection 是更晚的一篇，与阅读方向一致 */ -}}
-  {{- $prev = .PrevInSection -}}
-  {{- $next = .NextInSection -}}
+  {{- /* 非系列：只有文章（站点主栏目里的页面，与首页列表同一口径）才有时间上的前后篇，
+       关于、归档等独立页面不输出。严格按日期升序，prev = 更早，next = 更晚。 */ -}}
+  {{- if in site.MainSections .Type -}}
+    {{- $posts := (where site.RegularPages "Type" "in" site.MainSections).ByDate -}}
+    {{- range $i, $p := $posts -}}
+      {{- if $p.Eq $ -}}
+        {{- if gt $i 0 }}{{ $prev = index $posts (sub $i 1) }}{{ end -}}
+        {{- if lt (add $i 1) (len $posts) }}{{ $next = index $posts (add $i 1) }}{{ end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
 {{- end -}}
 {{- if or $prev $next }}
 <nav class="post-nav">

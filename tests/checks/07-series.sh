@@ -47,6 +47,11 @@ has posts/no-headings/index.html 'class="post-nav-next"'
 # 导航在正文之后
 before $L 'class="prose"' 'class="post-nav"'
 
+# 独立页面（关于、归档）不是文章，不输出文章导航
+hasnt about/index.html 'class="post-nav"'
+hasnt archives/index.html 'class="post-nav"'
+OUT=tests/.out-min hasnt about/index.html 'class="post-nav"'
+
 # 标签页不受影响
 has tags/index.html 'class="term-list"'
 hasnt tags/index.html 'series-list'
