@@ -12,7 +12,7 @@
     {{- range $pages }}
     <li class="series-item">
       <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+      <span class="with-icon">{{ partial "icon.html" "calendar" }}<time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time></span>
     </li>
     {{- end }}
   </ol>

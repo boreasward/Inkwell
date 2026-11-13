@@ -107,8 +107,13 @@ theme = "Inkwell"
   cssIntegrity = "sha384-u1zONI5gPXUx0UKI62c75/zww972y0v2rSK5ZYlVdS6xEuWDeZWUI66v6t1gvlXJ"
 [params.mermaid]
   url = "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs"
+[params.header]
+  navIcons = true
 [params.footer]
   text = ""
+  links = []
+[params.pet]
+  enable = true
 [params.comments.giscus]
   repo = ""
   repoId = ""
@@ -129,11 +134,36 @@ theme = "Inkwell"
 | `math.cssIntegrity` | 与默认地址匹配的 SRI 哈希 | 样式表的 `integrity` 值。**改了 `math.css` 就必须同步改这个值**，不需要时设为空字符串 |
 | `mermaid.url` | Mermaid 11 的 CDN 地址（ESM） | Mermaid 脚本地址，只在含 ` ```mermaid ` 代码块的页面加载 |
 | `footer.text` | `""` | 页脚的一行自定义文字，空则不显示；按行内 Markdown 渲染（站点配置是可信的），所以可以放链接，例如 ICP 备案：`text = "[京ICP备12345678号](https://beian.miit.gov.cn/)"`。页脚始终有版权行和 RSS 链接 |
+| `header.navIcons` | `true` | 导航菜单项前是否显示图标。窄屏（< 600px）下导航始终只显示文字 |
+| `footer.links` | `[]` | 页脚链接，和版权、RSS 同一行显示、各带一个图标。每项是 `{ name, url, icon }`；`icon` 省略时按地址推断（`github.com` → GitHub 图标，`mailto:` → 信封，其余 → 地球），写 `"none"` 不显示图标。示例见下文 |
+| `pet.enable` | `true` | 页面左下角随机蹦跳的小兔子：会在页面底部蹦来蹦去、眨眼、眼睛跟着鼠标，点它会跳起来并冒出爱心。纯装饰，对读屏隐藏，打印时不显示；系统开启“减弱动态效果”时只待在原地。不想要就设为 `false` |
 | `comments.giscus.repo` | `""` | giscus 的仓库，形如 `owner/repo`。**非空即开启评论**，为空则整个评论功能不输出任何内容 |
 | `comments.giscus.repoId` | `""` | giscus 仓库 ID |
 | `comments.giscus.category` | `""` | giscus 讨论分类名 |
 | `comments.giscus.categoryId` | `""` | giscus 讨论分类 ID |
 | `comments.giscus.mapping` | `"pathname"` | 文章与讨论的对应方式，直接传给 giscus |
+
+导航图标默认按菜单指向的页面自动选择：首页、归档（`layout = "archives"`）、系列总览、标签总览、`/about` 各有对应图标，其他菜单项没有图标。可以在菜单项上用 `params.icon` 指定或关闭（写 `"none"`），图标名见 `layouts/_partials/icon.html`：
+
+```toml
+[[menus.main]]
+  name = "友链"
+  pageRef = "/links"
+  weight = 60
+  [menus.main.params]
+    icon = "globe"
+```
+
+页脚链接示例（原来写在 `footer.text` 里的 GitHub 链接可以挪到这里，就会带上图标）：
+
+```toml
+[[params.footer.links]]
+  name = "GitHub"
+  url = "https://github.com/owner"
+[[params.footer.links]]
+  name = "邮箱"
+  url = "mailto:me@example.com"
+```
 
 评论的四个参数（仓库、仓库 ID、分类、分类 ID）可在 [giscus.app](https://giscus.app/) 上生成。评论区在滚动到附近时才加载，并随明暗模式切换。占位示例：
 

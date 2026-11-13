@@ -59,7 +59,7 @@
   padding: var(--space-1) 0;
 }
 
-.post-list--compact time {
+.post-list--compact .post-date {
   flex: none;
   color: var(--c-text-muted);
   font-size: var(--fs-sm);
@@ -254,7 +254,8 @@
   color: var(--c-accent);
 }
 
-.series-item time {
+.series-item > .with-icon {
+  white-space: nowrap;
   margin-inline-start: var(--space-3);
   color: var(--c-text-muted);
   font-size: var(--fs-sm);
@@ -344,6 +345,16 @@
   margin-top: var(--space-2);
   color: var(--c-text-muted);
   font-size: var(--fs-sm);
+}
+
+.article-tags {
+  display: flex;
+  align-items: baseline;
+  min-width: 0;
+}
+
+.article-tags > .icon {
+  align-self: center;
 }
 
 .article-meta time {

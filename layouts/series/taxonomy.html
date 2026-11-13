@@ -11,8 +11,8 @@
     {{- range .Data.Terms.Alphabetical }}
     {{- $term := .Page }}
     <li class="series-card">
-      <h2 class="series-card-title"><a href="{{ $term.RelPermalink }}">{{ $term.LinkTitle }}</a></h2>
-      <p class="series-card-count">{{ i18n "postCount" (dict "Count" .Count) }}</p>
+      <h2 class="series-card-title"><a class="with-icon" href="{{ $term.RelPermalink }}">{{ partial "icon.html" "layers" }}{{ $term.LinkTitle }}</a></h2>
+      <p class="series-card-count with-icon">{{ partial "icon.html" "file-text" }}{{ i18n "postCount" (dict "Count" .Count) }}</p>
       {{- with strings.TrimSpace $term.Content }}
       <div class="series-card-intro">{{ $term.Content }}</div>
       {{- else }}

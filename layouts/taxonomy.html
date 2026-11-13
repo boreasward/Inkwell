@@ -15,7 +15,7 @@
   <ul class="term-list">
     {{- range .Data.Terms.Alphabetical }}
     <li class="term-item">
-      <a href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }}</a>
+      <a class="with-icon" href="{{ .Page.RelPermalink }}">{{ partial "icon.html" (cond (eq $.Data.Plural "series") "layers" "hash") }}{{ .Page.LinkTitle }}</a>
       <span class="term-count">{{ i18n "postCount" (dict "Count" .Count) }}</span>
     </li>
     {{- end }}

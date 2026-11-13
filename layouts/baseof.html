@@ -11,6 +11,9 @@
     {{ block "main" . }}{{ end }}
   </main>
   {{ partial "footer.html" . }}
+  {{- if site.Params.pet.enable }}
+  {{ partial "pet.html" . }}
+  {{- end }}
   {{- if site.Params.search.enable }}
   {{ partial "search-dialog.html" . }}
   {{- end }}

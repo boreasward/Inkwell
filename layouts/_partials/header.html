@@ -5,11 +5,11 @@
       {{- range .Site.Menus.main }}
         {{- $url := .URL | relURL }}
         {{- with .Page }}{{ $url = .RelPermalink }}{{ end }}
-        {{- if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }}
-          <li><a href="{{ $url }}" aria-current="page">{{ .Name }}</a></li>
-        {{- else }}
-          <li><a href="{{ $url }}">{{ .Name }}</a></li>
-        {{- end }}
+        {{- $icon := partial "funcs/menu-icon.html" . }}
+        {{- $current := or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }}
+          <li><a class="with-icon" href="{{ $url }}"{{ if $current }} aria-current="page"{{ end }}>
+            {{- with $icon }}{{ partial "icon.html" . }}{{ end }}{{ .Name -}}
+          </a></li>
       {{- end }}
     </ul>
   </nav>

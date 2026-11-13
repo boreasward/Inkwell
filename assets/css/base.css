@@ -77,6 +77,18 @@ a:hover {
   flex: none;
 }
 
+/* 文字旁的小图标：与文字等高、按基线对齐，线条比按钮图标细一点。
+   文章头部元信息的每一项都带图标，直接按位置匹配，不再逐个加类名 */
+.with-icon > .icon,
+.article-meta > span > .icon,
+.article-tags > .icon {
+  width: 1em;
+  height: 1em;
+  margin-inline-end: 0.3em;
+  vertical-align: -0.125em;
+  stroke-width: 1.75;
+}
+
 /* 页头 */
 .site-header {
   display: flex;
@@ -86,8 +98,10 @@ a:hover {
   border-bottom: 1px solid var(--c-border);
 }
 
+/* 标题优先完整显示（最多占页头 45%，超长才换行），放不下的菜单项在导航里横向滚动 */
 .site-title {
-  flex: 0 1 auto;
+  flex: none;
+  max-width: 45%;
   min-width: 0;
   overflow-wrap: anywhere;
   color: var(--c-text);
@@ -123,6 +137,13 @@ a:hover {
 
 .site-nav a {
   color: var(--c-text-muted);
+}
+
+/* 窄屏放不下几项菜单，导航只留文字 */
+@media (max-width: 599.98px) {
+  .site-nav .icon {
+    display: none;
+  }
 }
 
 .site-nav a:hover,
@@ -199,6 +220,19 @@ a:hover {
   margin-top: var(--space-1);
 }
 
-.site-footer a {
-  margin-inline-start: var(--space-2);
+.site-footer .footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-1) var(--space-3);
+}
+
+.site-footer .footer-links a {
+  color: var(--c-text-muted);
+}
+
+.site-footer .footer-links a:hover {
+  color: var(--c-accent);
+  text-decoration: none;
 }

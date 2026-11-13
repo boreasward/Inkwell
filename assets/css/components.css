@@ -479,3 +479,208 @@
   width: 100%;
   max-width: 100%;
 }
+
+/* ---------- 小兔子（params.pet.enable，由 pet.js 驱动）----------
+   .pet 只负责横向位置，.pet-body 负责离地高度，.pet-svg 负责压扁、拉长和转圈，三层各管一种变换互不覆盖。
+   配色固定，不跟随明暗模式；层级低于悬浮按钮和抽屉；容器不接收指针，只有身体可以点。 */
+.pet {
+  --pet-fur: #fffaf4;
+  --pet-line: #6b5850;
+  --pet-ear-in: #ffc2cf;
+  --pet-eye: #3b2f2b;
+  --pet-blush: #ffadc0;
+  --pet-nose: #ff8fa8;
+  --pet-heart: #ff5c86;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 10;
+  width: 44px;
+  height: 44px;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.pet[hidden] {
+  display: none;
+}
+
+.pet-shadow {
+  position: absolute;
+  left: 7px;
+  right: 7px;
+  bottom: 0;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--c-text);
+  opacity: 0.25;
+}
+
+.pet-body {
+  position: absolute;
+  inset: 0 0 2px;
+  pointer-events: auto;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pet-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  transform-origin: 50% 100%;
+  transition: transform 0.12s ease-out;
+}
+
+.pet.is-air .pet-svg {
+  transform: scale(0.93, 1.07);
+}
+
+.pet-svg.is-land {
+  animation: pet-land 0.28s ease-out;
+}
+
+.pet-svg.is-spin {
+  transform-origin: 50% 65%;
+  animation: pet-spin 0.6s ease-in-out;
+}
+
+.pet-fur {
+  fill: var(--pet-fur);
+  stroke: var(--pet-line);
+  stroke-width: 1.4;
+}
+
+.pet-ear-in {
+  fill: var(--pet-ear-in);
+}
+
+/* 耳朵：空中向后甩，落地时抖一下 */
+.pet-ear {
+  transform-box: fill-box;
+  transform-origin: 50% 90%;
+  transition: transform 0.15s ease-out;
+}
+
+.pet.is-air .pet-ear-l {
+  transform: rotate(-12deg);
+}
+
+.pet.is-air .pet-ear-r {
+  transform: rotate(12deg);
+}
+
+.pet-svg.is-land .pet-ear-l {
+  animation: pet-ear-l 0.45s ease-out;
+}
+
+.pet-svg.is-land .pet-ear-r {
+  animation: pet-ear-r 0.45s ease-out;
+}
+
+.pet-face {
+  transition: transform 0.2s ease-out;
+}
+
+.pet-eyes {
+  fill: var(--pet-eye);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.08s;
+}
+
+.pet-glint {
+  fill: #fff;
+}
+
+.pet.is-blink .pet-eyes {
+  transform: scaleY(0.1);
+}
+
+.pet-eyes-happy,
+.pet-mouth {
+  fill: none;
+  stroke: var(--pet-eye);
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pet-eyes-happy {
+  display: none;
+}
+
+.pet.is-happy .pet-eyes {
+  display: none;
+}
+
+.pet.is-happy .pet-eyes-happy {
+  display: inline;
+}
+
+.pet-blush {
+  fill: var(--pet-blush);
+  opacity: 0.75;
+}
+
+.pet-nose {
+  fill: var(--pet-nose);
+  stroke: var(--pet-nose);
+  stroke-width: 0.6;
+  stroke-linejoin: round;
+}
+
+.pet-heart {
+  position: absolute;
+  top: -6px;
+  color: var(--pet-heart);
+  font-size: var(--fs-sm);
+  line-height: 1;
+  pointer-events: none;
+  animation: pet-heart 0.9s ease-out forwards;
+}
+
+@keyframes pet-land {
+  0% { transform: scale(1.16, 0.82); }
+  60% { transform: scale(0.97, 1.03); }
+  100% { transform: scale(1, 1); }
+}
+
+@keyframes pet-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pet-ear-l {
+  0% { transform: rotate(-12deg); }
+  40% { transform: rotate(10deg); }
+  70% { transform: rotate(-4deg); }
+  100% { transform: rotate(0); }
+}
+
+@keyframes pet-ear-r {
+  0% { transform: rotate(12deg); }
+  40% { transform: rotate(-10deg); }
+  70% { transform: rotate(4deg); }
+  100% { transform: rotate(0); }
+}
+
+@keyframes pet-heart {
+  0% { transform: translateY(0) scale(0.6); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(-36px) scale(1.15); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pet-svg,
+  .pet-face,
+  .pet-ear {
+    transition: none;
+  }
+}
+
+@media print {
+  .pet {
+    display: none;
+  }
+}

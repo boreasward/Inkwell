@@ -1,0 +1,26 @@
+{{- /* 导航菜单项的图标名。参数：菜单项。返回 "" 表示不显示图标。
+     优先用菜单项的 params.icon（写 "none" 关闭）；没写时按指向的页面推断：
+     首页 → home，归档（layout = "archives"）→ archive，系列 → layers，标签 → tag，关于（/about）→ user。
+     站点 params.header.navIcons = false 时一律不显示。 */ -}}
+{{- $icon := "" -}}
+{{- if ne site.Params.header.navIcons false -}}
+  {{- with .Params.icon -}}
+    {{- $icon = . -}}
+  {{- else -}}
+    {{- with .Page -}}
+      {{- if .IsHome -}}
+        {{- $icon = "home" -}}
+      {{- else if eq .Layout "archives" -}}
+        {{- $icon = "archive" -}}
+      {{- else if and (eq .Kind "taxonomy") (eq .Data.Plural "series") -}}
+        {{- $icon = "layers" -}}
+      {{- else if and (eq .Kind "taxonomy") (eq .Data.Plural "tags") -}}
+        {{- $icon = "tag" -}}
+      {{- else if eq .Path "/about" -}}
+        {{- $icon = "user" -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- if eq $icon "none" }}{{ $icon = "" }}{{ end -}}
+{{- return $icon -}}

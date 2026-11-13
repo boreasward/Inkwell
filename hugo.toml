@@ -14,8 +14,13 @@
   cssIntegrity = "sha384-u1zONI5gPXUx0UKI62c75/zww972y0v2rSK5ZYlVdS6xEuWDeZWUI66v6t1gvlXJ"
 [params.mermaid]
   url = "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs"
+[params.header]
+  navIcons = true                # 导航菜单项前的图标
 [params.footer]
   text = ""
+  links = []                     # [{ name, url, icon }]，与 RSS 同一行、带图标
+[params.pet]
+  enable = true                  # 页面底部随机蹦跳的小兔子
 [params.comments.giscus]
   repo = ""                      # 非空即开启评论
   repoId = ""
