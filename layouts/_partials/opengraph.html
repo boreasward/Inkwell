@@ -1,0 +1,29 @@
+{{- /* Open Graph 标签。不用 _internal/opengraph.html，因为它的描述回退是 .Summary | plainify，
+     会让公式文字重复；这里的描述与 <meta name="description"> 共用 funcs/plain-summary.html。 */ -}}
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:title" content="{{ with .Title }}{{ . }}{{ else }}{{ site.Title }}{{ end }}">
+{{- $desc := cond (ne .Description "") .Description (partial "funcs/plain-summary.html" .) }}
+{{- with $desc }}
+<meta property="og:description" content="{{ . | truncate 200 }}">
+{{- end }}
+<meta property="og:site_name" content="{{ site.Title }}">
+{{- with site.Language.Locale }}
+<meta property="og:locale" content="{{ . | replaceRE "-" "_" }}">
+{{- end }}
+{{- if .IsPage }}
+<meta property="og:type" content="article">
+  {{- with .Section }}
+<meta property="article:section" content="{{ . }}">
+  {{- end }}
+  {{- if not .PublishDate.IsZero }}
+<meta property="article:published_time" content="{{ .PublishDate.Format "2006-01-02T15:04:05Z07:00" }}">
+  {{- end }}
+  {{- if not .Lastmod.IsZero }}
+<meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">
+  {{- end }}
+  {{- range .GetTerms "tags" }}
+<meta property="article:tag" content="{{ .LinkTitle }}">
+  {{- end }}
+{{- else }}
+<meta property="og:type" content="website">
+{{- end }}

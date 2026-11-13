@@ -2,7 +2,7 @@
 {{- with .Description }}
   <meta name="description" content="{{ . }}">
 {{- else }}
-  {{- with .Summary | plainify | chomp }}
+  {{- with partial "funcs/plain-summary.html" . }}
     <meta name="description" content="{{ . | truncate 200 }}">
   {{- end }}
 {{- end }}
@@ -10,7 +10,7 @@
 {{- with .OutputFormats.Get "rss" }}
   <link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="{{ $.Site.Title }}">
 {{- end }}
-{{ template "_internal/opengraph.html" . }}
+{{ partial "opengraph.html" . }}
 {{ partial "theme-init.html" . }}
 {{ partial "css.html" . }}
 {{- /* 先渲染正文：render-passthrough / render-codeblock-mermaid 钩子在渲染时才写入 hasMath / hasMermaid */ -}}

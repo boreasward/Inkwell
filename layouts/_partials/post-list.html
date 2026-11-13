@@ -17,7 +17,7 @@
       {{- end }}
     </div>
     {{- /* 摘要一律是纯文本：Description 或截断后的 Summary，交给模板转义 */ -}}
-    {{- $text := cond (ne .Description "") .Description (.Summary | plainify | truncate 140) }}
+    {{- $text := cond (ne .Description "") .Description (partial "funcs/plain-summary.html" . | truncate 140) }}
     {{- with $text }}
     <p class="post-summary">{{ . }}</p>
     {{- end }}
