@@ -10,6 +10,23 @@
 {{- with site.Language.Locale }}
 <meta property="og:locale" content="{{ . | replaceRE "-" "_" }}">
 {{- end }}
+{{- /* 图片，优先级同 Hugo 内置模板：front matter 的 images > 页面资源（feature、cover、thumbnail）> 站点 params.images */ -}}
+{{- with .Params.images }}
+  {{- range first 6 . }}
+<meta property="og:image" content="{{ . | absURL }}">
+  {{- end }}
+{{- else }}
+  {{- $images := $.Resources.ByType "image" }}
+  {{- $featured := $images.GetMatch "*feature*" }}
+  {{- if not $featured }}{{ $featured = $images.GetMatch "{*cover*,*thumbnail*}" }}{{ end }}
+  {{- with $featured }}
+<meta property="og:image" content="{{ .Permalink }}">
+  {{- else }}
+    {{- with site.Params.images }}
+<meta property="og:image" content="{{ index . 0 | absURL }}">
+    {{- end }}
+  {{- end }}
+{{- end }}
 {{- if .IsPage }}
 <meta property="og:type" content="article">
   {{- with .Section }}

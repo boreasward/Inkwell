@@ -33,3 +33,10 @@ done
 # og:description 与 meta description 都存在
 has $M 'property="og:description"'
 has $M 'name="description"'
+
+# og:image 不能为空；<meta> 的 content 不能跨行（多段摘要的换行要折成空格）
+if grep -rqF 'property="og:image" content=""' "$OUT" --include=index.html; then
+  fail "06-math：存在空的 og:image"
+fi
+multi=$(find "$OUT" -name index.html -print0 | xargs -0 perl -0777 -ne 'while (/<meta [^>]*content="[^">]*\n[^">]*"/g) { print "$ARGV\n"; last }')
+[ -z "$multi" ] || fail "06-math：以下页面的 <meta content> 跨行：$multi"
