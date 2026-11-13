@@ -74,7 +74,7 @@ theme = "Inkwell"
 | `[taxonomies]` 里的 `series` | 声明“系列”分类法 | 系列相关功能全部不出现：系列页、文章页里的系列页签与序号、系列内的上一篇/下一篇、系列总览；`series` 字段被当作普通 front matter。同时需要保留 `tag = "tags"`，否则标签也会消失 |
 | `[markup.tableOfContents]` | 目录收录的标题层级（二到三级） | 取 Hugo 默认值，恰好也是 2 到 3 级；写出来是为了明确层级，改动它会同步改变目录 |
 | `passthrough` 与 `delimiters` | 让 `\( \)`、`\[ \]`、`$$ $$` 被识别为公式 | 公式保持 LaTeX 原文，不会被排版，也不会加载 KaTeX 样式表 |
-| `wrapStandAloneImageWithinParagraph = false` | 独占一段的图片输出为 `<figure>` | 图片退化为行内 `<img>`，没有图注（`title` 被忽略），也不会带 figure 样式 |
+| `wrapStandAloneImageWithinParagraph = false` | 独占一段的图片输出为 `<figure>` | 图片退化为行内 `<img>`，没有图注（`title` 只作为鼠标悬停提示），也不会带 figure 样式 |
 | `[markup.goldmark.renderer] unsafe = true`（可选） | 允许正文里直接写 `<kbd>`、`<mark>`、`<details>` | 这些原始 HTML 被丢弃（输出 `<!-- raw HTML omitted -->`），构建时 Hugo 还会给出警告；不用这些标签就不需要它 |
 
 示例站点（`exampleSite/hugo.toml`）在此基础上另有 `themesDir = "../.."`、`[params.search] enable = true` 和 `menus.main`。导航菜单用 Hugo 标准的 `menus.main`：
