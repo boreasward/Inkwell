@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-label="占位图二">
+  <rect width="640" height="360" fill="#f2f0ea"/>
+  <rect x="220" y="86" width="200" height="128" rx="12" fill="#d8cfbc"/>
+  <text x="320" y="300" text-anchor="middle" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="28" fill="#57606a">占位图二</text>
+</svg>

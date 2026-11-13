@@ -1,0 +1,16 @@
+<header class="site-header">
+  <a class="site-title" href="{{ .Site.Home.RelPermalink }}">{{ .Site.Title }}</a>
+  <nav class="site-nav">
+    <ul>
+      {{- range .Site.Menus.main }}
+        {{- $url := .URL | relURL }}
+        {{- with .Page }}{{ $url = .RelPermalink }}{{ end }}
+        {{- if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }}
+          <li><a href="{{ $url }}" aria-current="page">{{ .Name }}</a></li>
+        {{- else }}
+          <li><a href="{{ $url }}">{{ .Name }}</a></li>
+        {{- end }}
+      {{- end }}
+    </ul>
+  </nav>
+</header>

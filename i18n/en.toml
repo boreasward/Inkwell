@@ -1,0 +1,93 @@
+# English UI strings. Keys map one-to-one with zh-cn.toml.
+[toc]
+other = "Table of Contents"
+
+[series]
+other = "Series"
+
+[seriesPosition]
+other = "Part {{ .Index }} / {{ .Total }}"
+
+[allSeries]
+other = "All Series"
+
+[prev]
+other = "Previous"
+
+[next]
+other = "Next"
+
+[published]
+other = "Published"
+
+[updated]
+other = "Updated"
+
+[words]
+other = "{{ .Count }} words"
+
+[readingTime]
+other = "{{ .Count }} min read"
+
+[tags]
+other = "Tags"
+
+[archives]
+other = "Archives"
+
+[postCount]
+other = "{{ .Count }} posts"
+
+[newerPosts]
+other = "Newer posts"
+
+[olderPosts]
+other = "Older posts"
+
+[search]
+other = "Search"
+
+[searchPlaceholder]
+other = "Search posts…"
+
+[searchEmpty]
+other = "No results found"
+
+[copy]
+other = "Copy"
+
+[copied]
+other = "Copied"
+
+[toggleTheme]
+other = "Toggle theme"
+
+[openDrawer]
+other = "Open menu"
+
+[close]
+other = "Close"
+
+[notFound]
+other = "Page not found"
+
+[backHome]
+other = "Back to home"
+
+[comments]
+other = "Comments"
+
+[note]
+other = "Note"
+
+[tip]
+other = "Tip"
+
+[important]
+other = "Important"
+
+[warning]
+other = "Warning"
+
+[caution]
+other = "Caution"

@@ -1,0 +1,11 @@
+<footer class="site-footer">
+  <p>
+    <span>&copy; {{ now.Year }} {{ .Site.Title }}</span>
+    {{- with .Site.Home.OutputFormats.Get "rss" }}
+      <a href="{{ .RelPermalink }}">RSS</a>
+    {{- end }}
+  </p>
+  {{- with .Site.Params.footer.text }}
+    <p>{{ . }}</p>
+  {{- end }}
+</footer>

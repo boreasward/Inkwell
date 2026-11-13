@@ -1,0 +1,24 @@
+# 主题默认配置：Hugo 只合并主题配置里的 params，其余配置请写在站点配置中。
+
+[params.home]
+  listStyle = "compact"          # 或 "summary"
+[params.article]
+  showWordCount = true
+  showReadingTime = true
+  externalLinkNewTab = true
+[params.search]
+  enable = false
+[params.math]
+  enable = true
+  css = "https://cdn.jsdelivr.net/npm/katex@0.18.4/dist/katex.min.css"
+  cssIntegrity = "sha384-u1zONI5gPXUx0UKI62c75/zww972y0v2rSK5ZYlVdS6xEuWDeZWUI66v6t1gvlXJ"
+[params.mermaid]
+  url = "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs"
+[params.footer]
+  text = ""
+[params.comments.giscus]
+  repo = ""                      # 非空即开启评论
+  repoId = ""
+  category = ""
+  categoryId = ""
+  mapping = "pathname"

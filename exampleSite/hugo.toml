@@ -1,0 +1,51 @@
+# 示例站点配置。运行：hugo server --source exampleSite（仓库目录名需为 Inkwell）
+baseURL = "https://example.com/"
+title = "Inkwell"
+# locale 即 HTML lang 属性（Hugo ≥ 0.158 用 locale 取代 languageCode）
+locale = "zh-CN"
+defaultContentLanguage = "zh-cn"
+hasCJKLanguage = true
+theme = "Inkwell"
+themesDir = "../.."
+
+[pagination]
+  pagerSize = 5                  # 示例站点用 5，实际站点建议 20
+
+[taxonomies]
+  tag = "tags"
+  series = "series"
+
+[markup.tableOfContents]
+  startLevel = 2
+  endLevel = 3
+[markup.goldmark.extensions.passthrough]
+  enable = true
+  [markup.goldmark.extensions.passthrough.delimiters]
+    block = [['\[', '\]'], ['$$', '$$']]
+    inline = [['\(', '\)']]
+[markup.goldmark.renderer]
+  unsafe = true                  # 可选：正文内嵌 <kbd>、<mark>、<details> 需要
+
+[params.search]
+  enable = true
+
+[[menus.main]]
+  name = "首页"
+  pageRef = "/"
+  weight = 10
+[[menus.main]]
+  name = "归档"
+  pageRef = "/archives"
+  weight = 20
+[[menus.main]]
+  name = "系列"
+  pageRef = "/series"
+  weight = 30
+[[menus.main]]
+  name = "标签"
+  pageRef = "/tags"
+  weight = 40
+[[menus.main]]
+  name = "关于"
+  pageRef = "/about"
+  weight = 50

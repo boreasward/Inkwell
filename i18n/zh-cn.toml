@@ -1,0 +1,93 @@
+# 简体中文界面文字。键与 en.toml 一一对应。
+[toc]
+other = "目录"
+
+[series]
+other = "系列"
+
+[seriesPosition]
+other = "第 {{ .Index }} / {{ .Total }} 篇"
+
+[allSeries]
+other = "全部系列"
+
+[prev]
+other = "上一篇"
+
+[next]
+other = "下一篇"
+
+[published]
+other = "发布于"
+
+[updated]
+other = "更新于"
+
+[words]
+other = "{{ .Count }} 字"
+
+[readingTime]
+other = "约 {{ .Count }} 分钟"
+
+[tags]
+other = "标签"
+
+[archives]
+other = "归档"
+
+[postCount]
+other = "{{ .Count }} 篇"
+
+[newerPosts]
+other = "较新的文章"
+
+[olderPosts]
+other = "较早的文章"
+
+[search]
+other = "搜索"
+
+[searchPlaceholder]
+other = "搜索文章…"
+
+[searchEmpty]
+other = "没有找到相关内容"
+
+[copy]
+other = "复制"
+
+[copied]
+other = "已复制"
+
+[toggleTheme]
+other = "切换明暗模式"
+
+[openDrawer]
+other = "打开目录面板"
+
+[close]
+other = "关闭"
+
+[notFound]
+other = "页面不存在"
+
+[backHome]
+other = "返回首页"
+
+[comments]
+other = "评论"
+
+[note]
+other = "注意"
+
+[tip]
+other = "提示"
+
+[important]
+other = "重要"
+
+[warning]
+other = "警告"
+
+[caution]
+other = "当心"

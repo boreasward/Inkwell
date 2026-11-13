@@ -1,0 +1,5 @@
+# 最小站点配置：只有 baseURL、title、theme、themesDir，验证主题在缺省配置下可构建。
+baseURL = "https://minimal.example.org/"
+title = "Minimal Config Site"
+theme = "Inkwell"
+themesDir = "../.."

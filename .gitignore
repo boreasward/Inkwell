@@ -1,1 +1,6 @@
 .superpowers/
+tests/.out*
+exampleSite/public/
+exampleSite/resources/
+.hugo_build.lock
+.DS_Store
