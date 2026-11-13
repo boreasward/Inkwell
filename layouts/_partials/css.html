@@ -1,0 +1,14 @@
+{{- /* 按固定顺序合并 assets/css/ 下的样式，文件不存在时跳过。后续任务往 $order 里追加即可。 */ -}}
+{{- $order := slice "tokens" "base" "layout" "prose" "code" "components" -}}
+{{- $files := slice -}}
+{{- range $order -}}
+  {{- with resources.Get (printf "css/%s.css" .) -}}
+    {{- $files = $files | append . -}}
+  {{- end -}}
+{{- end -}}
+{{- $css := $files | resources.Concat "css/inkwell.css" -}}
+{{- if hugo.IsProduction -}}
+  {{- $css = $css | resources.Minify -}}
+{{- end -}}
+{{- $css = $css | resources.Fingerprint -}}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">

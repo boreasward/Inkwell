@@ -1,0 +1,87 @@
+/* 设计令牌：素白风格。使用者可在自己站点的 assets/css/ 里覆盖这些变量。 */
+:root {
+  color-scheme: light;
+
+  /* 颜色 */
+  --c-bg: #ffffff;
+  --c-bg-subtle: #f6f8fa;
+  --c-text: #1f2328;
+  --c-text-muted: #59636e;
+  --c-border: #d1d9e0;
+  --c-accent: #1f6feb;
+  --c-code-bg: #f6f8fa;
+  --c-mark: #fff8c5;
+
+  /* 代码高亮 */
+  --hl-comment: #6e7781;
+  --hl-keyword: #cf222e;
+  --hl-string: #0a3069;
+  --hl-number: #0550ae;
+  --hl-func: #8250df;
+  --hl-type: #953800;
+  --hl-tag: #116329;
+  --hl-attr: #0550ae;
+  --hl-line: #fff8c5;
+
+  /* 提示框 */
+  --c-note: #0969da;
+  --c-tip: #1a7f37;
+  --c-important: #8250df;
+  --c-warning: #9a6700;
+  --c-caution: #cf222e;
+
+  /* 尺寸 */
+  --measure: 40em;
+  --sidebar: 220px;
+  --gap: 48px;
+  --radius: 6px;
+  --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --fs-base: 16px;
+  --lh-base: 1.8;
+
+  /* 字号与间距刻度 */
+  --fs-sm: 0.875rem;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2.5rem;
+}
+
+/* 中等及以上宽度：正文 17px */
+@media (min-width: 1000px) {
+  :root {
+    --fs-base: 17px;
+  }
+}
+
+/* 深色只在 data-theme="dark" 下生效；关闭 JavaScript 时固定为浅色 */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --c-bg: #0d1117;
+  --c-bg-subtle: #151b23;
+  --c-text: #d1d7e0;
+  --c-text-muted: #8b949e;
+  --c-border: #30363d;
+  --c-accent: #58a6ff;
+  --c-code-bg: #161b22;
+  --c-mark: rgba(187, 128, 9, 0.4);
+
+  --hl-comment: #8b949e;
+  --hl-keyword: #ff7b72;
+  --hl-string: #a5d6ff;
+  --hl-number: #79c0ff;
+  --hl-func: #d2a8ff;
+  --hl-type: #ffa657;
+  --hl-tag: #7ee787;
+  --hl-attr: #79c0ff;
+  --hl-line: #1c2b3f;
+
+  --c-note: #4493f8;
+  --c-tip: #3fb950;
+  --c-important: #ab7df8;
+  --c-warning: #d29922;
+  --c-caution: #f85149;
+}

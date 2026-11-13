@@ -1,0 +1,8 @@
+{{- /* 用法：partial "js.html" (dict "src" "js/main.js" "page" .) */ -}}
+{{- with resources.Get .src -}}
+  {{- $opts := dict "target" "es2020" "targetPath" .Name "minify" hugo.IsProduction -}}
+  {{- $js := . | js.Build $opts | resources.Fingerprint -}}
+  <script type="module" src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
+{{- else -}}
+  {{- errorf "js.html: 找不到 assets/%s" $.src -}}
+{{- end -}}

@@ -11,3 +11,5 @@
   <link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="{{ $.Site.Title }}">
 {{- end }}
 {{ template "_internal/opengraph.html" . }}
+{{ partial "theme-init.html" . }}
+{{ partial "css.html" . }}

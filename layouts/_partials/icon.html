@@ -1,0 +1,11 @@
+{{- /* 内联 SVG 图标。用法：partial "icon.html" "sun" */ -}}
+{{- $name := . -}}
+{{- $paths := dict
+  "sun" `<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>`
+  "moon" `<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>`
+-}}
+{{- with index $paths $name -}}
+  <svg class="icon icon-{{ $name }}" viewBox="0 0 24 24" aria-hidden="true" focusable="false">{{ . | safeHTML }}</svg>
+{{- else -}}
+  {{- errorf "icon.html: 未知图标 %q" $name -}}
+{{- end -}}
