@@ -1,0 +1,43 @@
+{{- /* 文章列表。参数：pages（页面集合）、style（"compact" 或 "summary"）。
+       compact：按年份分组，每篇一行（日期 + 标题）；summary：标题、日期、标签与纯文本摘要。 */ -}}
+{{- $style := cond (eq .style "summary") "summary" "compact" -}}
+{{- if eq $style "summary" }}
+<div class="post-list post-list--summary">
+  {{- range .pages }}
+  <article class="post-item">
+    <h2 class="post-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+    <div class="post-meta">
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+      {{- with .GetTerms "tags" }}
+      <ul class="post-tags">
+        {{- range . }}
+        <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
+        {{- end }}
+      </ul>
+      {{- end }}
+    </div>
+    {{- /* 摘要一律是纯文本：Description 或截断后的 Summary，交给模板转义 */ -}}
+    {{- $text := cond (ne .Description "") .Description (.Summary | plainify | truncate 140) }}
+    {{- with $text }}
+    <p class="post-summary">{{ . }}</p>
+    {{- end }}
+  </article>
+  {{- end }}
+</div>
+{{- else }}
+<div class="post-list post-list--compact">
+  {{- range .pages.GroupByDate "2006" }}
+  <section class="post-group">
+    <h2 class="post-year">{{ .Key }}</h2>
+    <ul>
+      {{- range .Pages }}
+      <li class="post-item">
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      </li>
+      {{- end }}
+    </ul>
+  </section>
+  {{- end }}
+</div>
+{{- end }}

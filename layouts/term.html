@@ -1,0 +1,12 @@
+{{ define "main" }}
+<div class="page">
+  <header class="page-header">
+    <h1 class="page-title">{{ .Title }}</h1>
+    <p class="page-meta">{{ i18n "postCount" (dict "Count" (len .Pages)) }}</p>
+  </header>
+  {{- with strings.TrimSpace .Content }}
+  <div class="prose">{{ $.Content }}</div>
+  {{- end }}
+  {{- partial "post-list.html" (dict "pages" .Pages.ByDate.Reverse "style" "compact") }}
+</div>
+{{ end }}

@@ -1,8 +1,11 @@
 {{ define "main" }}
-  {{ .Content }}
-  <ul>
-    {{- range where site.RegularPages "Type" "in" site.MainSections }}
-      <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
-    {{- end }}
-  </ul>
+<div class="page">
+  {{- with strings.TrimSpace .Content }}
+  <div class="home-intro prose">{{ $.Content }}</div>
+  {{- end }}
+  {{- $pages := where site.RegularPages "Type" "in" site.MainSections }}
+  {{- $paginator := .Paginate $pages.ByDate.Reverse }}
+  {{- partial "post-list.html" (dict "pages" $paginator.Pages "style" (site.Params.home.listStyle | default "compact")) }}
+  {{- partial "pager.html" $paginator }}
+</div>
 {{ end }}

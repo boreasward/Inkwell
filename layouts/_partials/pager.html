@@ -1,0 +1,16 @@
+{{- /* 分页导航。参数：Paginator。只有一页时不输出。第 1 页是最新的文章。 */ -}}
+{{- if gt .TotalPages 1 }}
+<nav class="pager">
+  {{- if .HasPrev }}
+  <a class="pager-newer" rel="prev" href="{{ .Prev.URL }}">{{ i18n "newerPosts" }}</a>
+  {{- else }}
+  <span class="pager-newer" aria-hidden="true"></span>
+  {{- end }}
+  <span class="pager-current">{{ .PageNumber }} / {{ .TotalPages }}</span>
+  {{- if .HasNext }}
+  <a class="pager-older" rel="next" href="{{ .Next.URL }}">{{ i18n "olderPosts" }}</a>
+  {{- else }}
+  <span class="pager-older" aria-hidden="true"></span>
+  {{- end }}
+</nav>
+{{- end }}

@@ -33,14 +33,17 @@ build "最小配置" no --source exampleSite --config "$PWD/tests/fixtures/minim
 # 3. 子路径构建
 build "子路径" strict --source exampleSite --baseURL https://example.org/blog/ --destination "$PWD/tests/.out-sub" --cleanDestinationDir
 
-# 4. 依次 source 检查脚本（按文件名字典序）
+# 4. 摘要样式构建（首页列表样式取自环境变量 HUGO_PARAMS_HOME_LISTSTYLE）
+HUGO_PARAMS_HOME_LISTSTYLE=summary build "摘要样式" strict --source exampleSite --destination "$PWD/tests/.out-summary" --cleanDestinationDir
+
+# 5. 依次 source 检查脚本（按文件名字典序）
 echo "== 产物断言 =="
 for f in tests/checks/*.sh; do
   # shellcheck disable=SC1090
   source "$f"
 done
 
-# 5. node --test（有 node 且 tests/js/ 存在时）
+# 6. node --test（有 node 且 tests/js/ 存在时）
 if command -v node >/dev/null 2>&1; then
   if [ -d tests/js ]; then
     echo "== node --test tests/js/ =="
@@ -52,7 +55,7 @@ else
   echo "提示：未找到 node，跳过 node 测试"
 fi
 
-# 6. 汇总
+# 7. 汇总
 if [ "$FAILED" = 1 ]; then
   exit 1
 fi

@@ -1,0 +1,24 @@
+{{ define "main" }}
+<div class="page">
+  <header class="page-header">
+    {{- /* 站点没有为分类法页提供标题时，tags / series 用 i18n 文字，其余沿用 Hugo 的标题 */ -}}
+    {{- $title := .Title }}
+    {{- if not .File }}
+      {{- if eq .Data.Plural "tags" }}{{ $title = i18n "tags" }}{{ end }}
+      {{- if eq .Data.Plural "series" }}{{ $title = i18n "series" }}{{ end }}
+    {{- end }}
+    <h1 class="page-title">{{ $title }}</h1>
+  </header>
+  {{- with strings.TrimSpace .Content }}
+  <div class="prose">{{ $.Content }}</div>
+  {{- end }}
+  <ul class="term-list">
+    {{- range .Data.Terms.Alphabetical }}
+    <li class="term-item">
+      <a href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }}</a>
+      <span class="term-count">{{ i18n "postCount" (dict "Count" .Count) }}</span>
+    </li>
+    {{- end }}
+  </ul>
+</div>
+{{ end }}
