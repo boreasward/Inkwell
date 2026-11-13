@@ -1,8 +1,10 @@
-{{- /* 用法：partial "js.html" (dict "src" "js/main.js" "page" .) */ -}}
+{{- /* 用法：partial "js.html" (dict "src" "js/main.js" "page" .)
+     可选 "attrs"：附加到 <script> 上的属性（dict，键为属性名，值会被转义），例如 (dict "data-mermaid-url" $url) */ -}}
 {{- with resources.Get .src -}}
   {{- $opts := dict "target" "es2020" "targetPath" .Name "minify" hugo.IsProduction -}}
   {{- $js := . | js.Build $opts | resources.Fingerprint -}}
-  <script type="module" src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
+  <script type="module" src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"
+    {{- range $k, $v := $.attrs }} {{ $k | safeHTMLAttr }}="{{ $v }}"{{ end -}}></script>
 {{- else -}}
   {{- errorf "js.html: 找不到 assets/%s" $.src -}}
 {{- end -}}

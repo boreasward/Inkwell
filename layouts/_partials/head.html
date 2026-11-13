@@ -13,3 +13,9 @@
 {{ template "_internal/opengraph.html" . }}
 {{ partial "theme-init.html" . }}
 {{ partial "css.html" . }}
+{{- /* 先渲染正文：render-passthrough / render-codeblock-mermaid 钩子在渲染时才写入 hasMath / hasMermaid */ -}}
+{{- $noop := .WordCount -}}
+{{- if and (.Page.Store.Get "hasMath") site.Params.math.css }}
+<link rel="stylesheet" href="{{ site.Params.math.css }}"
+  {{- with site.Params.math.cssIntegrity }} integrity="{{ . }}"{{ end }} crossorigin="anonymous">
+{{- end }}

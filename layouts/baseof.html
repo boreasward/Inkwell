@@ -12,6 +12,9 @@
   </main>
   {{ partial "footer.html" . }}
   {{ partial "js.html" (dict "src" "js/main.js" "page" .) }}
+  {{- if .Page.Store.Get "hasMermaid" }}
+  {{ partial "js.html" (dict "src" "js/mermaid.js" "page" . "attrs" (dict "data-mermaid-url" site.Params.mermaid.url)) }}
+  {{- end }}
   {{ block "scripts" . }}{{ end }}
 </body>
 </html>

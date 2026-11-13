@@ -1,0 +1,16 @@
+{{- /* 公式：构建期用 KaTeX 排版（transform.ToMath），页面只需再加载 KaTeX 样式表。
+     只有站点配置了 markup.goldmark.extensions.passthrough 才会进入本钩子；没配置时公式保持原文。
+     params.math.enable 为假时原样输出，不渲染也不加载样式。
+     throwOnError=false：公式有语法错误时输出红色原文，不让构建失败，也不产生 WARN。 */ -}}
+{{- if site.Params.math.enable -}}
+  {{- $opts := dict "output" "htmlAndMathml" "displayMode" (eq .Type "block") "throwOnError" false -}}
+  {{- $html := transform.ToMath .Inner $opts -}}
+  {{- .Page.Store.Set "hasMath" true -}}
+  {{- if eq .Type "block" -}}
+    <div class="math-display">{{ $html }}</div>
+  {{- else -}}
+    {{ $html }}
+  {{- end -}}
+{{- else -}}
+  {{- .Inner -}}
+{{- end -}}

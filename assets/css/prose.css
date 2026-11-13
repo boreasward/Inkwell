@@ -358,3 +358,41 @@ dialog.lightbox img {
   max-height: 100%;
   object-fit: contain;
 }
+
+/* 块级公式：KaTeX 在构建期排好版；超宽时在 .math-display 内横向滚动 */
+.prose .math-display {
+  margin: 0 0 var(--space-3);
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.prose .math-display .katex-display {
+  margin: var(--space-2) 0;
+}
+
+/* Mermaid：渲染前（或加载失败时）是等宽源码，渲染后是居中的 SVG；超宽时在块内滚动 */
+.prose pre.mermaid {
+  margin: 0 0 var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  background: var(--c-code-bg);
+  color: var(--c-text);
+  font-family: var(--font-mono);
+  font-size: var(--fs-code);
+  line-height: 1.6;
+  overflow-x: auto;
+  overflow-wrap: normal;
+  white-space: pre;
+}
+
+.prose pre.mermaid[data-processed] {
+  background: transparent;
+  text-align: center;
+  white-space: normal;
+}
+
+.prose pre.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}

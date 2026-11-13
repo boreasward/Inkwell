@@ -1,0 +1,4 @@
+{{- /* Mermaid：输出带源码的 <pre>，由 js/mermaid.js 在浏览器里渲染成图。
+     data-source 保存原文，主题切换后据此还原再重渲染；JS 未运行或加载失败时 <pre> 里的源码照常可读。 */ -}}
+{{- .Page.Store.Set "hasMermaid" true -}}
+<pre class="mermaid" data-source="{{ .Inner }}">{{ .Inner }}</pre>
