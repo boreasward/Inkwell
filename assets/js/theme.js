@@ -5,12 +5,23 @@ export function currentTheme() {
   return document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
 }
 
-function applyTheme(theme) {
-  document.documentElement.setAttribute("data-theme", theme);
+function storedTheme() {
   try {
-    localStorage.setItem(STORAGE_KEY, theme);
+    const value = localStorage.getItem(STORAGE_KEY);
+    return value === "light" || value === "dark" ? value : null;
   } catch (e) {
-    // 隐私模式下存储可能抛异常，忽略即可
+    return null;
+  }
+}
+
+function applyTheme(theme, persist = true) {
+  document.documentElement.setAttribute("data-theme", theme);
+  if (persist) {
+    try {
+      localStorage.setItem(STORAGE_KEY, theme);
+    } catch (e) {
+      // 隐私模式下存储可能抛异常，忽略即可
+    }
   }
   document.dispatchEvent(new CustomEvent("inkwell:themechange", { detail: { theme } }));
 }
@@ -21,4 +32,17 @@ export function initTheme() {
       applyTheme(currentTheme() === "dark" ? "light" : "dark");
     });
   });
+}
+
+// 没有手动选择过时，跟随系统明暗的实时变化；已有存储的选择则以选择为准。系统变化不写入存储。
+export function initSystemTheme() {
+  if (!window.matchMedia) return;
+  const query = window.matchMedia("(prefers-color-scheme: dark)");
+  const follow = (event) => {
+    if (storedTheme()) return;
+    const theme = event.matches ? "dark" : "light";
+    if (theme !== currentTheme()) applyTheme(theme, false);
+  };
+  if (query.addEventListener) query.addEventListener("change", follow);
+  else if (query.addListener) query.addListener(follow);
 }

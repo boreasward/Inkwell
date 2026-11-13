@@ -5,7 +5,8 @@
       <a href="{{ .RelPermalink }}">RSS</a>
     {{- end }}
   </p>
+  {{- /* 站点配置可信：文字按行内 Markdown 渲染，可放 ICP 备案链接 */ -}}
   {{- with .Site.Params.footer.text }}
-    <p>{{ . }}</p>
+    <p>{{ $.RenderString (dict "display" "inline") . }}</p>
   {{- end }}
 </footer>

@@ -1,6 +1,7 @@
 {{- /* 公式：构建期用 KaTeX 排版（transform.ToMath），页面只需再加载 KaTeX 样式表。
      只有站点配置了 markup.goldmark.extensions.passthrough 才会进入本钩子；没配置时公式保持原文。
-     params.math.enable 为假时原样输出，不渲染也不加载样式。
+     params.math.enable 为假时按纯文本重新输出定界符（块级 $$…$$，行内 \(…\)），不渲染也不加载样式；
+     源文件里用 \[…\] 的块级公式会变成 $$…$$。
      throwOnError=false：公式有语法错误时输出红色原文，不让构建失败，也不产生 WARN。 */ -}}
 {{- if site.Params.math.enable -}}
   {{- $opts := dict "output" "htmlAndMathml" "displayMode" (eq .Type "block") "throwOnError" false -}}
@@ -11,6 +12,8 @@
   {{- else -}}
     {{ $html }}
   {{- end -}}
+{{- else if eq .Type "block" -}}
+  {{- printf "$$%s$$" .Inner -}}
 {{- else -}}
-  {{- .Inner -}}
+  {{- printf "\\(%s\\)" .Inner -}}
 {{- end -}}

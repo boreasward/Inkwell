@@ -1,4 +1,4 @@
-<title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
+<title>{{ if .IsHome }}{{ .Site.Title }}{{ else if eq .Kind "404" }}{{ i18n "notFound" }} · {{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
 {{- with .Description }}
   <meta name="description" content="{{ . }}">
 {{- else }}

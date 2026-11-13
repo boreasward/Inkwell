@@ -1,4 +1,4 @@
-// 图片放大：点击 img[data-zoomable] 用一个按需创建的 dialog.lightbox 显示大图。
+// 图片放大：点击 img[data-zoomable]（不在链接里的）用一个按需创建的 dialog.lightbox 显示大图。
 // 点击对话框任意位置、或按 Esc（dialog 原生行为）关闭。没有 JavaScript 时图片按原样显示。
 let dialog = null;
 
@@ -27,6 +27,8 @@ function open(source) {
 export function initLightbox() {
   if (typeof HTMLDialogElement === "undefined") return;
   document.querySelectorAll("img[data-zoomable]").forEach((img) => {
+    // 链接里的图片保持链接行为，不放大
+    if (img.closest("a")) return;
     img.tabIndex = 0;
     img.setAttribute("role", "button");
     img.addEventListener("click", () => open(img));

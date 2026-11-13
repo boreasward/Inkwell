@@ -1,9 +1,17 @@
-{{- /* 链接：外链且 params.article.externalLinkNewTab 为真时新窗口打开。属性顺序固定：href、title、rel、target。 */ -}}
+{{- /* 链接：外链且 params.article.externalLinkNewTab 为真时新窗口打开。属性顺序固定：href、title、rel、target。
+     只放行 http、https、mailto、tel、相对地址和片段；javascript:、vbscript:、data: 等一律换成 "#"，不经 safeURL。
+     站内绝对路径（/about/）先去掉前导斜杠再 relURL（relURL 不处理前导斜杠），部署在子路径下才有前缀；协议相对地址（//host/…）按外链原样输出。 */ -}}
+{{- $dest := .Destination -}}
 {{- $external := false -}}
-{{- with urls.Parse .Destination -}}
+{{- $href := $dest -}}
+{{- with urls.Parse $dest -}}
   {{- if or .Host (in (slice "http" "https") .Scheme) -}}
     {{- $external = true -}}
+  {{- else if and .Scheme (not (in (slice "mailto" "tel") .Scheme)) -}}
+    {{- $href = "#" -}}
+  {{- else if and (not .Scheme) (hasPrefix $dest "/") -}}
+    {{- $href = strings.TrimPrefix "/" $dest | relURL -}}
   {{- end -}}
 {{- end -}}
 {{- $newTab := and $external (site.Params.article.externalLinkNewTab | default false) -}}
-<a href="{{ .Destination | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $newTab }} rel="noopener" target="_blank"{{ end }}>{{ .Text }}</a>
+<a href="{{ $href | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $newTab }} rel="noopener" target="_blank"{{ end }}>{{ .Text }}</a>

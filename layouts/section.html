@@ -6,6 +6,6 @@
   {{- with strings.TrimSpace .Content }}
   <div class="prose">{{ $.Content }}</div>
   {{- end }}
-  {{- partial "post-list.html" (dict "pages" .RegularPages.ByDate.Reverse "style" "compact") }}
+  {{- partial "post-list.html" (dict "pages" .RegularPagesRecursive.ByDate.Reverse "style" "compact") }}
 </div>
 {{ end }}

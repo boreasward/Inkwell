@@ -86,7 +86,7 @@ tags = ["Markdown", "样式"]
 
 ![山峦剪影的样例图片](/images/sample.svg "图 1：一张用来测试图注与放大查看的样例图片")
 
-一个外链：[Hugo 官方网站](https://gohugo.io/)，会在新窗口打开。一个站内链接：[回到本页的表格](#表格)，在当前窗口跳转。
+一个外链：[Hugo 官方网站](https://gohugo.io/)，会在新窗口打开。一个站内链接：[回到本页的表格](#表格)，在当前窗口跳转。一个站内绝对路径链接：[关于本站](/about/)，部署在子路径下时会自动补上前缀。不安全协议的链接（例如 [这个](javascript:alert(1))）不会输出成可点击的地址。
 
 一个超长的链接，中间没有任何空格，应当自动断行而不是撑宽页面：<https://example.com/a-very-long-path/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/end>
 

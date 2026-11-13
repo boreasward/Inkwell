@@ -44,11 +44,11 @@
 }
 
 .prose h5 {
-  font-size: 1rem;
+  font-size: var(--fs-body);
 }
 
 .prose h6 {
-  font-size: 1rem;
+  font-size: var(--fs-body);
   color: var(--c-text-muted);
 }
 
@@ -215,6 +215,11 @@
 
 .prose img[data-zoomable] {
   cursor: zoom-in;
+}
+
+/* 链接里的图片不放大，保持链接的指针样式 */
+.prose a img[data-zoomable] {
+  cursor: pointer;
 }
 
 .prose figcaption {

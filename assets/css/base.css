@@ -87,10 +87,12 @@ a:hover {
 }
 
 .site-title {
-  flex: none;
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow-wrap: anywhere;
   color: var(--c-text);
   font-weight: 700;
-  font-size: 1.125rem;
+  font-size: var(--fs-md);
 }
 
 .site-title:hover {

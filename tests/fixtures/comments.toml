@@ -18,3 +18,7 @@ ignoreFiles = ["content/series/"]
   repoId = "R_x"
   category = "General"
   categoryId = "DIC_x"
+
+# 页脚文字按行内 Markdown 渲染（ICP 备案链接）
+[params.footer]
+  text = "[京ICP备12345678号](https://beian.miit.gov.cn/)"

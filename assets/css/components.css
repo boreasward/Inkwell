@@ -462,6 +462,11 @@
 }
 
 /* 评论区（giscus）。评论框由 comments.js 注入，在 .comments 里撑满宽度。 */
+/* 没有 JavaScript 时评论框不会出现，整块隐藏，免得留下一个空的带边框区域 */
+.no-js .comments {
+  display: none;
+}
+
 .comments {
   margin-top: var(--space-5);
   padding-top: var(--space-4);

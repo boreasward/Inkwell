@@ -1,5 +1,5 @@
-{{- /* 按固定顺序合并 assets/css/ 下的样式，文件不存在时跳过。后续任务往 $order 里追加即可。 */ -}}
-{{- $order := slice "tokens" "base" "layout" "prose" "code" "components" -}}
+{{- /* 按固定顺序合并 assets/css/ 下的样式，文件不存在时跳过；"custom" 留给站点自己的 assets/css/custom.css（只覆盖需要的令牌）。后续任务往 $order 里追加即可。 */ -}}
+{{- $order := slice "tokens" "base" "layout" "prose" "code" "components" "custom" -}}
 {{- $files := slice -}}
 {{- range $order -}}
   {{- with resources.Get (printf "css/%s.css" .) -}}

@@ -11,7 +11,7 @@
 
 .page-title {
   margin: 0;
-  font-size: 1.75rem;
+  font-size: var(--fs-title);
 }
 
 .page-meta {
@@ -38,7 +38,7 @@
 .post-year {
   margin: var(--space-4) 0 var(--space-2);
   color: var(--c-text-muted);
-  font-size: 1rem;
+  font-size: var(--fs-body);
   font-weight: 600;
 }
 
@@ -91,7 +91,7 @@
 
 .post-title {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: var(--fs-lg);
 }
 
 .post-title a {
@@ -119,6 +119,12 @@
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.post-tags li,
+.term-item {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .post-tags a {
@@ -193,7 +199,7 @@
 
 .series-card-title {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: var(--fs-lg);
 }
 
 .series-card-title a {
@@ -327,7 +333,7 @@
 
 .article-title {
   margin: 0;
-  font-size: 1.75rem;
+  font-size: var(--fs-title);
 }
 
 .article-meta {
