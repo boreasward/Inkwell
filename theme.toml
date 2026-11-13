@@ -1,3 +1,12 @@
 name = "Inkwell"
 license = "MIT"
+licenselink = "https://github.com/boreasward/Inkwell/blob/main/LICENSE"
+description = "A clean, reading-first blog theme with careful CJK typography, a three-mode article layout (TOC, series navigation, mobile drawers), code blocks, math, Mermaid, search and dark mode. No Node, no bundler, no Hugo extended."
+homepage = "https://github.com/boreasward/Inkwell"
+tags = ["blog", "minimal", "clean", "simple", "white", "light", "dark", "responsive", "chinese", "typography", "personal", "series", "search", "katex", "mermaid"]
+features = ["dark mode", "table of contents", "series", "tags", "archives", "client-side search", "syntax highlighting", "code copy button", "callouts", "math (KaTeX)", "mermaid diagrams", "image lightbox", "giscus comments", "RSS", "responsive", "CJK typography"]
 min_version = "0.158.0"
+
+[author]
+  name = "boreasward"
+  homepage = "https://github.com/boreasward"

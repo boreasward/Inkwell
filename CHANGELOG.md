@@ -1,12 +1,18 @@
-# 更新记录
+# Changelog
+
+## v0.1.2
+
+- Prepared for listing on [themes.gohugo.io](https://themes.gohugo.io/): complete `theme.toml` metadata (description, homepage, license link, tags, features, author), `[module.hugoVersion]` in the theme's `hugo.toml`, and a `go.mod` so the theme can also be imported as a Hugo Module.
+- The README is now in English by default; the Chinese version moved to `README.zh-CN.md`. Images and links in both use absolute URLs.
+- New screenshot and thumbnail showing the icons and the bunny.
 
 ## v0.1.1
 
-- 图标：导航菜单（首页、归档、系列、标签、关于自动匹配，可用 `params.icon` 指定或关闭）、文章列表与系列页的日期、文章头部的发布/更新日期、字数、阅读时间与标签、系列总览、标签总览、页脚 RSS 都配上了线条图标。新增 `params.header.navIcons` 开关。
-- 页脚链接：新增 `params.footer.links`，与版权、RSS 同一行显示并带图标（GitHub、邮箱自动识别）。
-- 小兔子：页面左下角随机蹦跳的小兔子，眨眼、眼睛跟随鼠标，点击会跳起并冒出爱心；尊重“减弱动态效果”，打印时隐藏。由 `params.pet.enable` 控制，默认开启。
-- 窄屏页头：站点标题不再被菜单挤到断行，窄屏下导航只显示文字。
+- Icons: line icons for navigation menu items (home, archives, series, tags and about are matched automatically; override or disable with `params.icon`), dates in post lists and series pages, the article header (published/updated date, word count, reading time, tags), the series and tag overview pages, and the footer RSS link. New `params.header.navIcons` switch.
+- Footer links: new `params.footer.links`, shown on the same line as the copyright and RSS, each with an icon (GitHub and email are detected automatically).
+- Bunny: a little bunny that hops along the bottom of the page, blinks, follows the mouse with its eyes and jumps with a heart when clicked. Respects reduced motion and is hidden in print. Controlled by `params.pet.enable`, on by default.
+- Narrow-screen header: the site title is no longer squeezed by the menu; the navigation shows text only on narrow screens.
 
 ## v0.1.0
 
-- 首个版本。
+- First release.

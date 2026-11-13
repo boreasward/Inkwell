@@ -1,5 +1,9 @@
 # 主题默认配置：Hugo 只合并主题配置里的 params，其余配置请写在站点配置中。
 
+[module.hugoVersion]
+  extended = false
+  min = "0.158.0"
+
 [params.home]
   listStyle = "compact"          # 或 "summary"
 [params.article]
