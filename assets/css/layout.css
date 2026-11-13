@@ -306,3 +306,85 @@
     grid-column: 1;
   }
 }
+
+/* 文章页：三档宽度
+   窄屏（< 1000px）：单栏居中。
+   中等（1000–1279px）：有目录时“正文 + 右侧目录”整体居中，正文略偏左；系列面板是底部抽屉。
+   大屏（≥ 1280px）：对称三列“系列 / 正文 / 目录”，正文在视口正中。
+   任何一档正文宽度都是 min(100%, var(--measure))，侧栏放不下时按窄屏处理，绝不挤窄正文。
+   抽屉、目录、系列面板的外观在 components.css。 */
+.article-header,
+.prose,
+.article-footer {
+  width: min(100%, var(--measure));
+  min-width: 0;
+  margin-inline: auto;
+}
+
+.article-header {
+  margin-bottom: var(--space-4);
+}
+
+.article-title {
+  margin: 0;
+  font-size: 1.75rem;
+}
+
+.article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-3);
+  margin-top: var(--space-2);
+  color: var(--c-text-muted);
+  font-size: var(--fs-sm);
+}
+
+.article-meta time {
+  font-variant-numeric: tabular-nums;
+}
+
+/* 网格区域：pre 行平时为空，没有 JavaScript 时用来放系列面板（排在正文之前） */
+@media (min-width: 1000px) and (max-width: 1279.98px) {
+  .has-toc .article {
+    display: grid;
+    grid-template-columns: min(100%, var(--measure)) var(--sidebar);
+    grid-template-areas:
+      "header toc"
+      "pre    toc"
+      "prose  toc"
+      "footer toc";
+    grid-template-rows: auto auto auto 1fr;
+    column-gap: var(--gap);
+    justify-content: center;
+  }
+}
+
+@media (min-width: 1280px) {
+  .article {
+    display: grid;
+    grid-template-columns: var(--sidebar) min(100%, var(--measure)) var(--sidebar);
+    grid-template-areas:
+      "series header toc"
+      "series pre    toc"
+      "series prose  toc"
+      "series footer toc";
+    grid-template-rows: auto auto auto 1fr;
+    column-gap: var(--gap);
+    justify-content: center;
+  }
+}
+
+@media (min-width: 1000px) {
+  .article-header {
+    grid-area: header;
+  }
+
+  .prose {
+    grid-area: prose;
+  }
+
+  .article-footer {
+    grid-area: footer;
+  }
+}

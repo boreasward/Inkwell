@@ -1,0 +1,44 @@
+{{- /* 目录与系列面板，以及窄屏用的悬浮按钮和遮罩。
+     参数：dict "page" 页面 "series" funcs/series.html 的返回值 "hasToc" funcs/has-toc.html 的返回值。
+     既无目录也无系列时什么都不输出；只有一种时不输出页签。
+     大屏两个面板是左右侧栏；中等宽度目录在右侧、系列面板是底部抽屉；窄屏整个 .drawer 是底部抽屉。
+     没有 JavaScript 时窄屏下 .drawer 留在正文之前的文档流里，见 components.css。 */ -}}
+{{- $series := .series -}}
+{{- $hasToc := .hasToc -}}
+{{- if or $hasToc $series }}
+<div id="drawer" class="drawer" data-active="{{ cond $hasToc "toc" "series" }}">
+  {{- if and $hasToc $series }}
+  <div class="drawer-tabs">
+    <button type="button" data-drawer-tab="toc" aria-pressed="true">{{ i18n "toc" }}</button>
+    <button type="button" data-drawer-tab="series" aria-pressed="false">{{ i18n "series" }}</button>
+  </div>
+  {{- end }}
+  {{- if $hasToc }}
+  <nav class="drawer-panel toc" data-panel="toc" aria-label="{{ i18n "toc" }}">
+    <p class="drawer-panel-title">{{ i18n "toc" }}</p>
+    {{- /* 去掉 Hugo 自带的 <nav id="TableOfContents"> 外层，避免 nav 套 nav */}}
+    {{ .page.TableOfContents | replaceRE `^\s*<nav id="TableOfContents">\s*` "" | replaceRE `\s*</nav>\s*$` "" | safeHTML }}
+  </nav>
+  {{- end }}
+  {{- with $series }}
+  <nav class="drawer-panel series-nav" data-panel="series" aria-label="{{ i18n "series" }}">
+    <p class="drawer-panel-title"><a href="{{ .term.RelPermalink }}">{{ .term.LinkTitle }}</a></p>
+    <p class="series-nav-position">{{ i18n "seriesPosition" (dict "Index" .index "Total" .total) }}</p>
+    <ol class="series-nav-list">
+      {{- range .pages }}
+      {{- if .Eq $.page }}
+      <li class="is-current"><a href="{{ .RelPermalink }}" aria-current="page">{{ .LinkTitle }}</a></li>
+      {{- else }}
+      <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
+      {{- end }}
+      {{- end }}
+    </ol>
+  </nav>
+  {{- end }}
+</div>
+<div class="drawer-backdrop" data-drawer-close></div>
+<button type="button" class="fab" data-drawer-toggle aria-label="{{ i18n "openDrawer" }}" aria-expanded="false" aria-controls="drawer">
+  {{- partial "icon.html" "list" -}}
+  {{- partial "icon.html" "close" -}}
+</button>
+{{- end }}

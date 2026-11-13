@@ -1,8 +1,13 @@
 {{ define "main" }}
+{{- $series := partial "funcs/series.html" . -}}
+{{- $hasToc := partial "funcs/has-toc.html" . }}
+<div class="article-layout{{ if $hasToc }} has-toc{{ end }}{{ if $series }} has-series{{ end }}">
 <article class="article">
   <header class="article-header">
     <h1 class="article-title">{{ .Title }}</h1>
+    {{- partial "post-meta.html" . }}
   </header>
+  {{- partial "drawer.html" (dict "page" . "series" $series "hasToc" $hasToc) }}
   <div class="prose">
     {{ .Content }}
   </div>
@@ -10,4 +15,5 @@
     {{- partial "post-nav.html" . }}
   </footer>
 </article>
+</div>
 {{ end }}

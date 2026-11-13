@@ -1,0 +1,8 @@
+{{- /* 页面是否显示目录。参数：页面。
+     front matter 写了 toc: false，或目录里的链接少于 2 个（没有标题、只有一个标题）时返回 false。
+     收录哪些层级由站点的 markup.tableOfContents 决定。 */ -}}
+{{- $show := false -}}
+{{- if ne .Params.toc false -}}
+  {{- $show = ge (len (findRE `<a href="#` .TableOfContents)) 2 -}}
+{{- end -}}
+{{- return $show -}}
