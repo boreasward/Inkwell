@@ -1,0 +1,14 @@
+{{- /* 代码块：头部显示语言名和复制按钮，正文用 Chroma 的 CSS 类高亮（noClasses=false，颜色见 code.css）。
+     用 transform.Highlight 而不是依赖站点的 markup.highlight 配置；没有语言时按纯文本渲染。 */ -}}
+{{- $lang := .Type | default "text" -}}
+<div class="code-block">
+<div class="code-header">
+  <span class="code-lang">{{ .Type }}</span>
+  <button type="button" class="code-copy" data-code-copy data-copied-label="{{ i18n "copied" }}" aria-label="{{ i18n "copy" }}">
+    {{- partial "icon.html" "copy" -}}
+    {{- partial "icon.html" "check" -}}
+    <span class="code-copy-label">{{ i18n "copy" }}</span>
+  </button>
+</div>
+{{ transform.Highlight .Inner $lang (merge .Options (dict "noClasses" false)) }}
+</div>

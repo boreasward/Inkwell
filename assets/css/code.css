@@ -1,0 +1,211 @@
+/* 代码块与行内代码。颜色全部来自 tokens.css 的 --hl-*；不使用 Chroma 生成的样式表。
+   行内代码的样式在 prose.css（:not(pre) > code），这里不重复。 */
+.code-block {
+  margin: 0 0 var(--space-3);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  background: var(--c-code-bg);
+  overflow: hidden;
+}
+
+.code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-2) var(--space-1) var(--space-3);
+  border-bottom: 1px solid var(--c-border);
+  color: var(--c-text-muted);
+  font-size: var(--fs-sm);
+}
+
+.code-lang {
+  font-family: var(--font-mono);
+}
+
+.code-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  border: 0;
+  border-radius: var(--radius);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.code-copy:hover {
+  background: var(--c-bg-subtle);
+  color: var(--c-text);
+}
+
+.code-copy .icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.code-copy .icon-check,
+.code-copy.is-copied .icon-copy {
+  display: none;
+}
+
+.code-copy.is-copied .icon-check {
+  display: block;
+}
+
+/* 没有 JavaScript 时复制按钮无效，隐藏 */
+.no-js .code-copy {
+  display: none;
+}
+
+/* Hugo 的 .Inner 已经是一个 .highlight > pre.chroma（或行号表格），这里只负责外观与滚动 */
+.code-block .highlight {
+  margin: 0;
+  overflow-x: auto;
+}
+
+.code-block pre {
+  margin: 0;
+  padding: var(--space-3);
+  background: transparent;
+  color: var(--c-text);
+  font-family: var(--font-mono);
+  font-size: var(--fs-code);
+  line-height: 1.6;
+  tab-size: 4;
+  /* 代码不换行，由 .highlight 横向滚动；覆盖 .prose 的 overflow-wrap: anywhere */
+  overflow-wrap: normal;
+  white-space: pre;
+  text-autospace: no-autospace;
+}
+
+.code-block code {
+  background: transparent;
+  padding: 0;
+  font: inherit;
+}
+
+/* 行号表格：行号列固定，代码列随内容撑宽 */
+.code-block .lntable {
+  width: auto;
+  min-width: 100%;
+  border-spacing: 0;
+  border-collapse: separate;
+  font-size: inherit;
+}
+
+.code-block .lntable td {
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: top;
+}
+
+.code-block .lntable td:first-child {
+  user-select: none;
+}
+
+.code-block .lntable td:first-child pre {
+  padding-inline-end: var(--space-2);
+}
+
+.code-block .lntable td:last-child {
+  width: 100%;
+}
+
+.code-block .ln,
+.code-block .lnt {
+  color: var(--c-text-muted);
+  user-select: none;
+}
+
+.code-block .ln {
+  display: inline-block;
+  margin-inline-end: var(--space-3);
+}
+
+/* 高亮行：背景铺满可视宽度 */
+.code-block .hl {
+  display: block;
+  margin-inline: calc(var(--space-3) * -1);
+  padding-inline: var(--space-3);
+  background: var(--hl-line);
+}
+
+/* Chroma 词法类 → --hl-* */
+.chroma .c,
+.chroma .ch,
+.chroma .cm,
+.chroma .c1,
+.chroma .cs,
+.chroma .cp,
+.chroma .cpf {
+  color: var(--hl-comment);
+  font-style: italic;
+}
+
+.chroma .k,
+.chroma .kc,
+.chroma .kd,
+.chroma .kn,
+.chroma .kp,
+.chroma .kr,
+.chroma .ow {
+  color: var(--hl-keyword);
+}
+
+.chroma .kt,
+.chroma .nc,
+.chroma .nn {
+  color: var(--hl-type);
+}
+
+.chroma .s,
+.chroma .sa,
+.chroma .sb,
+.chroma .sc,
+.chroma .dl,
+.chroma .sd,
+.chroma .s2,
+.chroma .se,
+.chroma .sh,
+.chroma .si,
+.chroma .sx,
+.chroma .sr,
+.chroma .s1,
+.chroma .ss {
+  color: var(--hl-string);
+}
+
+.chroma .m,
+.chroma .mb,
+.chroma .mf,
+.chroma .mh,
+.chroma .mi,
+.chroma .il,
+.chroma .mo {
+  color: var(--hl-number);
+}
+
+.chroma .nf,
+.chroma .fm {
+  color: var(--hl-func);
+}
+
+.chroma .nt {
+  color: var(--hl-tag);
+}
+
+.chroma .na {
+  color: var(--hl-attr);
+}
+
+.chroma .gd {
+  color: var(--hl-keyword);
+}
+
+.chroma .gi {
+  color: var(--hl-tag);
+}

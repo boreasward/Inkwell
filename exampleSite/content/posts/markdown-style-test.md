@@ -92,6 +92,50 @@ tags = ["Markdown", "样式"]
 
 行内代码也要能断行：`this_is_a_very_long_inline_code_span_without_any_spaces_that_should_wrap_instead_of_overflowing_the_page_width_at_375px`。
 
+## 代码
+
+行内代码用反引号包裹，比如 `fmt.Println` 或 `git commit -m "msg"`，在正文里和文字并排显示。
+
+带语言的代码块，右上角有复制按钮：
+
+```go
+package main
+
+import "fmt"
+
+// Greeter 打招呼。
+type Greeter struct{ Name string }
+
+func (g Greeter) Hello() string {
+	return fmt.Sprintf("你好，%s！共 %d 次", g.Name, 3)
+}
+
+func main() {
+	fmt.Println(Greeter{Name: "世界"}.Hello())
+}
+```
+
+显示行号并高亮第 2 行：
+
+```js {linenos=true, hl_lines=[2]}
+const items = [1, 2, 3];
+const doubled = items.map((n) => n * 2);
+console.log(doubled);
+```
+
+没有语言的代码块按纯文本显示：
+
+```
+$ hugo server
+Web Server is available at http://localhost:1313/
+```
+
+超长的单行代码在块内横向滚动，不撑开页面：
+
+```js
+const veryLongLine = "01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789";
+```
+
 ## 其他元素
 
 脚注的写法是这样的[^1]，页面底部会汇总，并可以点回正文[^2]。
