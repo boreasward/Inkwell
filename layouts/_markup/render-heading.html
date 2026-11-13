@@ -1,0 +1,2 @@
+{{- /* 标题：锚点链接放在文字之后，悬停时才显示，不挤动标题文字。 */ -}}
+<h{{ .Level }} id="{{ .Anchor }}">{{ .Text }}<a class="heading-anchor" href="#{{ .Anchor }}" aria-hidden="true" tabindex="-1">{{ partial "icon.html" "link" }}</a></h{{ .Level }}>

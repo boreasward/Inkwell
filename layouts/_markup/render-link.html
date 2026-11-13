@@ -1,0 +1,9 @@
+{{- /* 链接：外链且 params.article.externalLinkNewTab 为真时新窗口打开。属性顺序固定：href、title、rel、target。 */ -}}
+{{- $external := false -}}
+{{- with urls.Parse .Destination -}}
+  {{- if or .Host (in (slice "http" "https") .Scheme) -}}
+    {{- $external = true -}}
+  {{- end -}}
+{{- end -}}
+{{- $newTab := and $external (site.Params.article.externalLinkNewTab | default false) -}}
+<a href="{{ .Destination | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $newTab }} rel="noopener" target="_blank"{{ end }}>{{ .Text }}</a>

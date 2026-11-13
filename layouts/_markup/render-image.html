@@ -1,0 +1,20 @@
+{{- /* 图片：独占一段时输出 figure（title 作图注），行内图片只输出 img（title 退化为 title 属性）。
+     独占一段的图片只有在站点配置 markup.goldmark.parser.wrapStandAloneImageWithinParagraph = false 时才会被识别为块，
+     否则按行内图片输出。页面资源用资源地址。 */ -}}
+{{- $src := .Destination -}}
+{{- $res := false -}}
+{{- $u := urls.Parse .Destination -}}
+{{- if and (not $u.Scheme) (not $u.Host) -}}
+  {{- with .PageInner.Resources.Get $u.Path -}}
+    {{- $res = . -}}
+    {{- $src = .RelPermalink -}}
+  {{- else -}}
+    {{- /* relURL 不处理前导斜杠，先去掉再加子路径前缀 */ -}}
+    {{- if hasPrefix .Destination "/" -}}{{- $src = strings.TrimPrefix "/" .Destination | relURL -}}{{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- if .IsBlock }}<figure class="figure">{{ end -}}
+<img src="{{ $src }}" alt="{{ .Text }}" loading="lazy" data-zoomable
+  {{- if not .IsBlock }}{{ with .Title }} title="{{ . }}"{{ end }}{{ end }}
+  {{- with $res }}{{ if reflect.IsImageResourceProcessable . }} width="{{ .Width }}" height="{{ .Height }}"{{ end }}{{ end }}>
+{{- if .IsBlock }}{{ with .Title }}<figcaption>{{ . }}</figcaption>{{ end }}</figure>{{ end -}}

@@ -1,0 +1,360 @@
+/* 正文排版：只作用于 .prose（图片放大对话框除外，见文件末尾）。代码块样式在 code.css。 */
+.prose {
+  text-align: left;
+  line-break: strict;
+  overflow-wrap: anywhere;
+  /* 渐进增强：不支持的浏览器直接忽略 */
+  text-autospace: normal;
+  text-spacing-trim: normal;
+}
+
+.prose > :first-child {
+  margin-top: 0;
+}
+
+.prose > :last-child {
+  margin-bottom: 0;
+}
+
+/* 段落：段间距大于行间距 */
+.prose p {
+  margin: 0 0 var(--space-3);
+}
+
+/* 标题 */
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  margin: var(--space-5) 0 var(--space-3);
+  scroll-margin-top: var(--scroll-offset);
+}
+
+.prose h2 {
+  font-size: var(--fs-h2);
+}
+
+.prose h3 {
+  font-size: var(--fs-h3);
+}
+
+.prose h4 {
+  font-size: var(--fs-h4);
+}
+
+.prose h5 {
+  font-size: 1rem;
+}
+
+.prose h6 {
+  font-size: 1rem;
+  color: var(--c-text-muted);
+}
+
+.prose .heading-anchor {
+  margin-inline-start: var(--space-2);
+  color: var(--c-text-muted);
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.prose .heading-anchor .icon {
+  width: 0.75em;
+  height: 0.75em;
+  vertical-align: baseline;
+}
+
+.prose :is(h2, h3, h4, h5, h6):hover .heading-anchor,
+.prose .heading-anchor:focus-visible {
+  opacity: 1;
+}
+
+/* 触屏没有悬停：锚点常显但淡一些 */
+@media (hover: none) {
+  .prose .heading-anchor {
+    opacity: 0.4;
+  }
+}
+
+/* 链接：正文里的链接带下划线 */
+.prose a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.prose a.heading-anchor {
+  text-decoration: none;
+}
+
+/* 列表 */
+.prose ul,
+.prose ol {
+  margin: 0 0 var(--space-3);
+  padding-inline-start: var(--space-4);
+}
+
+.prose li {
+  margin-block: var(--space-1);
+}
+
+.prose li > p {
+  margin-bottom: var(--space-2);
+}
+
+.prose li > :is(ul, ol) {
+  margin-bottom: 0;
+}
+
+/* 任务列表：goldmark 输出 li > input[type=checkbox]，不带类名 */
+.prose li:has(> input[type="checkbox"]),
+.prose li:has(> p:first-child > input[type="checkbox"]) {
+  list-style: none;
+  margin-inline-start: calc(var(--space-4) * -1);
+}
+
+.prose input[type="checkbox"] {
+  margin: 0 var(--space-2) 0 0;
+  accent-color: var(--c-accent);
+  vertical-align: baseline;
+}
+
+/* 引用块 */
+.prose blockquote {
+  margin: 0 0 var(--space-3);
+  padding: 0 0 0 var(--space-3);
+  border-inline-start: 3px solid var(--c-border);
+  color: var(--c-text-muted);
+}
+
+.prose blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+/* 提示框 */
+.prose .alert {
+  --alert-color: var(--c-note);
+  padding: var(--space-2) var(--space-3);
+  border-inline-start: 4px solid var(--alert-color);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  background: var(--c-bg-subtle);
+  background: color-mix(in srgb, var(--alert-color) 8%, transparent);
+  color: var(--c-text);
+}
+
+.prose .alert-tip {
+  --alert-color: var(--c-tip);
+}
+
+.prose .alert-important {
+  --alert-color: var(--c-important);
+}
+
+.prose .alert-warning {
+  --alert-color: var(--c-warning);
+}
+
+.prose .alert-caution {
+  --alert-color: var(--c-caution);
+}
+
+.prose .alert-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-1);
+  color: var(--alert-color);
+  font-weight: 600;
+}
+
+/* 表格：超宽时在 .table-wrap 内横向滚动 */
+.prose .table-wrap {
+  margin: 0 0 var(--space-3);
+  overflow-x: auto;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+  /* 单元格不逐字断行，窄屏下改由容器滚动 */
+  overflow-wrap: normal;
+}
+
+.prose th,
+.prose td {
+  min-width: 6em;
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--c-border);
+  text-align: left;
+}
+
+.prose th {
+  background: var(--c-bg-subtle);
+  border-bottom-width: 2px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* 图片 */
+.prose img {
+  max-width: 100%;
+  height: auto;
+}
+
+.prose .figure {
+  margin: var(--space-4) 0;
+  text-align: center;
+}
+
+.prose .figure img {
+  display: block;
+  margin-inline: auto;
+}
+
+.prose img[data-zoomable] {
+  cursor: zoom-in;
+}
+
+.prose figcaption {
+  margin-top: var(--space-2);
+  color: var(--c-text-muted);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+}
+
+/* 行内代码（代码块见 code.css） */
+.prose :not(pre) > code {
+  padding: 0.15em 0.4em;
+  border-radius: var(--radius);
+  background: var(--c-code-bg);
+  font-family: var(--font-mono);
+  font-size: var(--fs-code);
+  text-autospace: no-autospace;
+}
+
+/* 分隔线 */
+.prose hr {
+  margin: var(--space-5) 0;
+  border: 0;
+  border-top: 1px solid var(--c-border);
+}
+
+/* 脚注 */
+.prose sup {
+  line-height: 0;
+}
+
+.prose .footnotes {
+  margin-top: var(--space-5);
+  color: var(--c-text-muted);
+  font-size: var(--fs-sm);
+}
+
+.prose .footnotes hr {
+  margin: 0 0 var(--space-3);
+}
+
+.prose .footnotes ol {
+  margin-bottom: 0;
+}
+
+.prose .footnotes li:target {
+  background: var(--c-mark);
+}
+
+.prose .footnote-backref {
+  margin-inline-start: var(--space-1);
+  text-decoration: none;
+}
+
+/* kbd、mark */
+.prose kbd {
+  padding: 0.1em 0.45em;
+  border: 1px solid var(--c-border);
+  border-bottom-width: 2px;
+  border-radius: var(--radius);
+  background: var(--c-bg-subtle);
+  font-family: var(--font-mono);
+  font-size: var(--fs-code);
+  text-autospace: no-autospace;
+  white-space: nowrap;
+}
+
+.prose mark {
+  padding: 0 0.2em;
+  border-radius: 2px;
+  background: var(--c-mark);
+  color: inherit;
+}
+
+/* details */
+.prose details {
+  margin: 0 0 var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+}
+
+.prose summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.prose details[open] > summary {
+  margin-bottom: var(--space-2);
+}
+
+.prose details > :last-child {
+  margin-bottom: 0;
+}
+
+/* 定义列表 */
+.prose dl {
+  margin: 0 0 var(--space-3);
+}
+
+.prose dt {
+  margin-top: var(--space-3);
+  font-weight: 600;
+}
+
+.prose dt:first-child {
+  margin-top: 0;
+}
+
+.prose dd {
+  margin: var(--space-1) 0 0;
+  padding-inline-start: var(--space-3);
+  border-inline-start: 2px solid var(--c-border);
+  color: var(--c-text-muted);
+}
+
+/* 图片放大对话框（不在 .prose 内，由 lightbox.js 创建） */
+dialog.lightbox {
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  max-height: none;
+  padding: var(--space-3);
+  border: 0;
+  background: transparent;
+  cursor: zoom-out;
+}
+
+dialog.lightbox[open] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+dialog.lightbox::backdrop {
+  background: var(--c-overlay);
+}
+
+dialog.lightbox img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}

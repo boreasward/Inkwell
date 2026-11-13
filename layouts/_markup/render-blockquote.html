@@ -1,0 +1,13 @@
+{{- /* 引用块；GitHub 风格提示框（> [!NOTE]）。未知类型按 note 处理。 */ -}}
+{{- if eq .Type "alert" -}}
+  {{- $type := .AlertType -}}
+  {{- if not (in (slice "note" "tip" "important" "warning" "caution") $type) -}}
+    {{- $type = "note" -}}
+  {{- end -}}
+<blockquote class="alert alert-{{ $type }}">
+<p class="alert-title">{{ partial "icon.html" $type }}{{ with .AlertTitle }}{{ . }}{{ else }}{{ i18n $type }}{{ end }}</p>
+{{ .Text }}</blockquote>
+{{- else -}}
+<blockquote>
+{{ .Text }}</blockquote>
+{{- end }}

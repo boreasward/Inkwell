@@ -23,6 +23,8 @@ themesDir = "../.."
   [markup.goldmark.extensions.passthrough.delimiters]
     block = [['\[', '\]'], ['$$', '$$']]
     inline = [['\(', '\)']]
+[markup.goldmark.parser]
+  wrapStandAloneImageWithinParagraph = false   # 让独占一段的图片输出为 figure，而不是 <p><figure>
 [markup.goldmark.renderer]
   unsafe = true                  # 可选：正文内嵌 <kbd>、<mark>、<details> 需要
 

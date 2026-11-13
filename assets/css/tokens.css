@@ -11,6 +11,7 @@
   --c-accent: #1f6feb;
   --c-code-bg: #f6f8fa;
   --c-mark: #fff8c5;
+  --c-overlay: rgba(0, 0, 0, 0.82);
 
   /* 代码高亮 */
   --hl-comment: #6e7781;
@@ -42,6 +43,11 @@
 
   /* 字号与间距刻度 */
   --fs-sm: 0.875rem;
+  --fs-h2: 1.5rem;
+  --fs-h3: 1.25rem;
+  --fs-h4: 1.125rem;
+  --fs-code: 0.9em;
+  --scroll-offset: 5rem;
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 1rem;
