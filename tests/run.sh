@@ -46,8 +46,9 @@ done
 # 6. node --test（有 node 且 tests/js/ 存在时）
 if command -v node >/dev/null 2>&1; then
   if [ -d tests/js ]; then
-    echo "== node --test tests/js/ =="
-    node --test tests/js/ || fail "node --test 失败"
+    # 新版 Node 把参数当 glob，传目录会报 "Could not find"；这里显式列出测试文件
+    echo "== node --test tests/js/*.test.js =="
+    node --test tests/js/*.test.js || fail "node --test 失败"
   else
     echo "提示：tests/js/ 不存在，跳过 node 测试"
   fi

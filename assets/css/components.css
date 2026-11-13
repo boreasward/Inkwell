@@ -324,3 +324,139 @@
     transition: none;
   }
 }
+
+/* ---------- 搜索弹窗（dialog#search-dialog，由 search.js 打开）---------- */
+.search-dialog {
+  width: min(var(--measure), calc(100vw - 2 * var(--space-3)));
+  max-width: none;
+  max-height: 70vh;
+  margin: 10vh auto auto;
+  padding: 0;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  background: var(--c-bg);
+  color: var(--c-text);
+  box-shadow: var(--shadow-float);
+  overflow: hidden;
+}
+
+.search-dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-dialog::backdrop {
+  background: var(--c-backdrop);
+}
+
+.search-bar {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--c-border);
+}
+
+.search-bar input {
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-2) 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+
+.search-bar input::placeholder {
+  color: var(--c-text-muted);
+}
+
+.search-close {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--c-text-muted);
+  cursor: pointer;
+}
+
+.search-close:hover {
+  background: var(--c-bg-subtle);
+  color: var(--c-text);
+}
+
+.search-results {
+  flex: 1;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.search-result + .search-result {
+  border-top: 1px solid var(--c-border);
+}
+
+.search-result a {
+  display: block;
+  padding: var(--space-3);
+  color: inherit;
+  line-height: 1.6;
+}
+
+.search-result a:hover,
+.search-result a:focus-visible {
+  background: var(--c-bg-subtle);
+  text-decoration: none;
+}
+
+.search-result-title {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.search-result-date {
+  margin-inline-start: var(--space-2);
+  color: var(--c-text-muted);
+  font-size: var(--fs-sm);
+}
+
+.search-result-snippet {
+  display: block;
+  margin-top: var(--space-1);
+  color: var(--c-text-muted);
+  font-size: var(--fs-sm);
+  overflow-wrap: anywhere;
+}
+
+.search-dialog mark {
+  background: var(--c-mark);
+  color: inherit;
+}
+
+.search-empty {
+  padding: var(--space-4) var(--space-3);
+  color: var(--c-text-muted);
+  text-align: center;
+}
+
+/* 窄屏：弹窗占满屏幕 */
+@media (max-width: 999px) {
+  .search-dialog {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+  }
+}

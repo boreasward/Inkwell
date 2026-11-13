@@ -11,7 +11,13 @@
     {{ block "main" . }}{{ end }}
   </main>
   {{ partial "footer.html" . }}
+  {{- if site.Params.search.enable }}
+  {{ partial "search-dialog.html" . }}
+  {{- end }}
   {{ partial "js.html" (dict "src" "js/main.js" "page" .) }}
+  {{- if site.Params.search.enable }}
+  {{ partial "js.html" (dict "src" "js/search.js" "page" .) }}
+  {{- end }}
   {{- if .Page.Store.Get "hasMermaid" }}
   {{ partial "js.html" (dict "src" "js/mermaid.js" "page" . "attrs" (dict "data-mermaid-url" site.Params.mermaid.url)) }}
   {{- end }}

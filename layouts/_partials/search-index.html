@@ -1,0 +1,17 @@
+{{- /* 生成搜索索引并返回它的相对地址。参数：页面（仅用于调用约定）。
+     用 resources.FromString 生成，不依赖站点的 outputs 配置，不加指纹（脚本按固定地址取）。
+     范围与首页文章集合相同；正文取 funcs/plain-text.html 处理过的 .Content，
+     而不是 .Plain（.Plain 含 KaTeX 重复的公式文字）。jsonify 负责 " < & 等字符的转义。 */ -}}
+{{- $entries := slice -}}
+{{- range (where site.RegularPages "Type" "in" site.MainSections).ByDate.Reverse -}}
+  {{- $tags := slice -}}
+  {{- range .GetTerms "tags" }}{{ $tags = $tags | append .LinkTitle }}{{ end -}}
+  {{- $entries = $entries | append (dict
+    "title" .Title
+    "url" .RelPermalink
+    "date" (.Date.Format "2006-01-02")
+    "tags" $tags
+    "content" (partial "funcs/plain-text.html" .Content)) -}}
+{{- end -}}
+{{- $index := resources.FromString "search-index.json" ($entries | jsonify) -}}
+{{- return $index.RelPermalink -}}

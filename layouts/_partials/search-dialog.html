@@ -1,0 +1,10 @@
+{{- /* 搜索弹窗。只在 params.search.enable 时由 baseof.html 引入；行为见 assets/js/search.js。 */ -}}
+<dialog id="search-dialog" class="search-dialog" aria-label="{{ i18n "search" }}" data-index="{{ partialCached "search-index.html" . }}" data-empty-label="{{ i18n "searchEmpty" }}">
+  <div class="search-bar">
+    <input id="search-input" type="text" role="searchbox" enterkeyhint="search" autocomplete="off" spellcheck="false" placeholder="{{ i18n "searchPlaceholder" }}" aria-label="{{ i18n "search" }}">
+    <button type="button" class="search-close" data-search-close aria-label="{{ i18n "close" }}" title="{{ i18n "close" }}">
+      {{- partial "icon.html" "close" -}}
+    </button>
+  </div>
+  <ol id="search-results" class="search-results"></ol>
+</dialog>

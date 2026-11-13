@@ -128,7 +128,8 @@ a:hover {
   color: var(--c-text);
 }
 
-[data-theme-toggle] {
+[data-theme-toggle],
+[data-search-open] {
   flex: none;
   display: inline-flex;
   align-items: center;
@@ -143,7 +144,8 @@ a:hover {
   cursor: pointer;
 }
 
-[data-theme-toggle]:hover {
+[data-theme-toggle]:hover,
+[data-search-open]:hover {
   background: var(--c-bg-subtle);
   color: var(--c-text);
 }
@@ -161,8 +163,9 @@ a:hover {
   display: none;
 }
 
-/* 没有 JavaScript 时切换按钮无效，隐藏 */
-.no-js [data-theme-toggle] {
+/* 没有 JavaScript 时切换和搜索按钮无效，隐藏 */
+.no-js [data-theme-toggle],
+.no-js [data-search-open] {
   display: none;
 }
 

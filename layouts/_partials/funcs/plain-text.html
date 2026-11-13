@@ -1,0 +1,6 @@
+{{- /* HTML 字符串转纯文本。参数：HTML 字符串。返回字符串（连续空白折成一个空格，首尾去掉）。
+     公式由 KaTeX 输出 HTML + MathML（含 TeX 源码的 annotation），直接 plainify 会让公式文字重复；
+     先整块去掉 <math>…</math>，只留一份可见文字。
+     代码块头部（语言名、复制按钮的文字，见 _markup/render-codeblock.html）是界面而非内容，一并去掉。 */ -}}
+{{- $html := . | string | replaceRE `(?s)<math[ >].*?</math>` "" | replaceRE `(?s)<div class="code-header">.*?</div>` "" -}}
+{{- return ($html | plainify | htmlUnescape | replaceRE `\s+` " " | strings.TrimSpace) -}}

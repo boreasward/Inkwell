@@ -1,6 +1,4 @@
 {{- /* 页面摘要的纯文本。参数：页面。返回字符串（未截断）。
-     公式由 KaTeX 输出 HTML + MathML（含 TeX 源码的 annotation），直接 plainify 会让公式文字重复；
-     先整块去掉 <math>…</math>，只留一份可见文字。 */ -}}
-{{- $html := .Summary | string | replaceRE `(?s)<math[ >].*?</math>` "" -}}
-{{- /* 连续空白（含换行）折成一个空格，免得多段摘要在 content="…" 里跨行 */ -}}
-{{- return ($html | plainify | htmlUnescape | replaceRE `\s+` " " | strings.TrimSpace) -}}
+     转换细节（去掉公式重复文字、折叠空白）在 funcs/plain-text.html。
+     连续空白（含换行）折成一个空格，免得多段摘要在 content="…" 里跨行。 */ -}}
+{{- return (partial "funcs/plain-text.html" .Summary) -}}
